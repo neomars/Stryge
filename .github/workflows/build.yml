@@ -209,12 +209,14 @@ jobs:
           V: ${{ needs.export.outputs.version }}
         run: |
           set -euo pipefail
+          test -f LICENSE && test -f THIRD_PARTY_NOTICES.md
           cd dist
           rm -f Stryge.zip
           sha256sum -- * > SHA256SUMS.txt
           cat SHA256SUMS.txt
           cd ..
           cat > notes.md <<EOF
+          <!-- stryge-install -->
           Stryge $V : canonnière de nuit au-dessus de Paris (prototype jouable).
 
           | Système | Fichier | Installation |
@@ -227,5 +229,21 @@ jobs:
           Windows et macOS afficheront un avertissement au premier lancement. Empreintes SHA-256 dans \`SHA256SUMS.txt\`.
           Licence MIT ; licences des données et composants tiers : \`THIRD_PARTY_NOTICES.md\`.
           EOF
-          gh release create "$GITHUB_REF_NAME" dist/* LICENSE THIRD_PARTY_NOTICES.md \
-            --repo "$GITHUB_REPOSITORY" --title "Stryge $V" --notes-file notes.md --verify-tag
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            # Release déjà créée à la main sur GitHub : on garde son titre et son texte,
+            # on y joint les fichiers et, une seule fois, le tableau d'installation.
+            gh release upload "$GITHUB_REF_NAME" dist/* LICENSE THIRD_PARTY_NOTICES.md \
+              --repo "$GITHUB_REPOSITORY" --clobber
+            old=$(gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --json body --jq .body)
+            case "$old" in
+              *"<!-- stryge-install -->"*) ;;
+              *)
+                printf '%s\n\n' "$old" > notes_all.md
+                cat notes.md >> notes_all.md
+                gh release edit "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --notes-file notes_all.md
+                ;;
+            esac
+          else
+            gh release create "$GITHUB_REF_NAME" dist/* LICENSE THIRD_PARTY_NOTICES.md \
+              --repo "$GITHUB_REPOSITORY" --title "Stryge $V" --notes-file notes.md --verify-tag
+          fi

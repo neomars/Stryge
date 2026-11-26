@@ -1308,10 +1308,10 @@ Les messages d'erreur ALSA (pas de carte son) et « ObjectDB instances leaked »
 
 **Obtenir les fichiers.** Onglet *Actions* du dépôt > *Compilation (exe, deb, dmg)* > *Run workflow* : les trois fichiers sont dans les
 *Artifacts* de l'exécution. Pour une *Release* GitHub (fichiers + `SHA256SUMS.txt`), pousser une étiquette qui correspond à
-`config/version` de `project.godot` (aujourd'hui `0.8.0`) :
+`config/version` de `project.godot` (aujourd'hui `1.0.0`) :
 
 ```bash
-git tag v0.8.0 && git push origin v0.8.0
+git tag v1.0.0 && git push origin v1.0.0
 ```
 
 Avant de fabriquer quoi que ce soit, le workflow lance la suite d'essais, vérifie que la version est la même dans `project.godot` et
@@ -1329,7 +1329,7 @@ Chaque `audio/**/*.wav.import` contient `importer="keep"` (fichier livré tel qu
 ```bash
 godot --headless --path . --import
 godot --headless --path . --export-release "Linux (x86_64)" build/linux/stryge.x86_64
-tools/release/build_deb.sh build/linux/stryge.x86_64 0.8.0 build   # paquet .deb
+tools/release/build_deb.sh build/linux/stryge.x86_64 1.0.0 build   # paquet .deb
 ```
 
 **Ce que ces fichiers ne sont pas.**

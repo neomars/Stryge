@@ -7,7 +7,7 @@
 set -euo pipefail
 
 bin=${1:?binaire Linux exporté}
-ver=${2:?version (ex. 0.8.0)}
+ver=${2:?version (ex. 1.0.0)}
 out=${3:?dossier de sortie}
 
 root=$(cd "$(dirname "$0")/../.." && pwd)
