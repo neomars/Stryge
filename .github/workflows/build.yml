@@ -75,7 +75,7 @@ jobs:
         run: |
           set -o pipefail
           chmod +x build/linux/stryge.x86_64
-          timeout 300 build/linux/stryge.x86_64 --headless --script res://scripts/dev/export_check.gd 2>&1 | tee check.log
+          timeout 300 build/linux/stryge.x86_64 --headless -- --export-check 2>&1 | tee check.log
           grep -q '^EXPORT_CHECK_OK' check.log
           # le jeu lui-même démarre sans erreur de script
           timeout 120 build/linux/stryge.x86_64 --headless --quit-after 200 2>&1 | tee run.log || true
@@ -120,7 +120,7 @@ jobs:
         run: |
           $exe = (Get-ChildItem dist -Filter *.exe | Select-Object -First 1).FullName
           Write-Host "Exécutable : $exe"
-          $p = Start-Process -FilePath $exe -ArgumentList '--headless','--script','res://scripts/dev/export_check.gd','--log-file','check.log' -Wait -PassThru
+          $p = Start-Process -FilePath $exe -ArgumentList '--headless','--log-file','check.log','--','--export-check' -Wait -PassThru
           if (Test-Path check.log) { Get-Content check.log }
           if ($p.ExitCode -ne 0) { throw "code de sortie $($p.ExitCode)" }
           if (-not (Select-String -Path check.log -Pattern '^EXPORT_CHECK_OK' -Quiet)) { throw "EXPORT_CHECK_OK absent du journal" }
@@ -150,7 +150,7 @@ jobs:
           BIN=$(ls "$APP"/Contents/MacOS/* | head -1)
           file "$BIN"
           set -o pipefail
-          timeout 300 "$BIN" --headless --script res://scripts/dev/export_check.gd 2>&1 | tee check.log
+          timeout 300 "$BIN" --headless -- --export-check 2>&1 | tee check.log
           grep -q '^EXPORT_CHECK_OK' check.log
 
       - name: Créer le .dmg
@@ -173,7 +173,7 @@ jobs:
           ls -la "$MNT"
           BIN=$(ls "$MNT"/Stryge.app/Contents/MacOS/* | head -1)
           set -o pipefail
-          timeout 300 "$BIN" --headless --script res://scripts/dev/export_check.gd 2>&1 | tee check-dmg.log
+          timeout 300 "$BIN" --headless -- --export-check 2>&1 | tee check-dmg.log
           hdiutil detach "$MNT"
           grep -q '^EXPORT_CHECK_OK' check-dmg.log
           ls -la "$OUT"

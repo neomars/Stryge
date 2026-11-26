@@ -1316,7 +1316,7 @@ git tag v0.8.0 && git push origin v0.8.0
 
 Avant de fabriquer quoi que ce soit, le workflow lance la suite d'essais, vérifie que la version est la même dans `project.godot` et
 dans `export_presets.cfg` (à changer aux deux endroits : `application/version`, `application/short_version`, `application/file_version`),
-puis **fait tourner le binaire exporté lui-même** (Linux, macOS, et l'`.exe` sous Windows) avec `scripts/dev/export_check.gd`, qui contrôle
+puis **fait tourner le binaire exporté lui-même** (Linux, macOS, et l'`.exe` sous Windows) avec l'option `-- --export-check` (`scripts/dev/export_check.gd`), qui contrôle
 que les données JSON, les sons et les shaders sont bien dans le paquet.
 
 **Pourquoi des fichiers `*.wav.import` dans le dépôt.** Le jeu lit ses sons directement (`AudioStreamWAV.load_from_file`) et ses données

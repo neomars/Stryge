@@ -5,6 +5,7 @@ extends Node3D
 ##   --nosound (sans audio)  --audio-record=/tmp/mix.wav (enregistre le mélange)  --audio-seconds=60 (quitte après 60 s)  --audio-log (journal)
 ##   --daily[=AAAA-MM-JJ] (défi du jour : celui de la date, par défaut d'aujourd'hui)  --endless (Nuit blanche sur le secteur choisi)
 ##   --mutators=fog,radio_down,...  (mutateurs de data/mutators.json)
+##   --export-check (contrôle d'un export : données, sons et shaders présents dans le paquet ; quitte avec le code 0 si tout y est)
 ##   --profile=chemin.json (profil du joueur ailleurs que dans user://profile.json)  --noprofile (profil neuf, jamais sauvegardé ;
 ##   c'est aussi le cas avec --autopilot, sauf si --profile est donné)
 
@@ -36,6 +37,7 @@ const Screens := preload("res://scripts/ui/screens.gd")
 const Hud := preload("res://scripts/ui/hud.gd")
 const AutoPilot := preload("res://scripts/dev/autopilot.gd")
 const POST_SHADER := preload("res://shaders/thermal_post.gdshader")
+const ExportCheck := preload("res://scripts/dev/export_check.gd")
 
 var ctx
 var cam: Camera3D
@@ -66,6 +68,12 @@ var _weapons_base: Array = []     # armes de data/weapons.json (avant améliorat
 
 func _ready() -> void:
 	args = _parse_args()
+	if args.has("export-check"):
+		# contrôle d'un export (compilation GitHub) : données, sons et shaders présents dans le paquet
+		set_process(false)
+		set_process_input(false)
+		get_tree().quit(ExportCheck.run())
+		return
 	ctx = Ctx.new()
 
 	var wj = _load_json("res://data/weapons.json")

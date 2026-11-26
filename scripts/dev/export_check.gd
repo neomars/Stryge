@@ -1,9 +1,10 @@
-extends SceneTree
+extends RefCounted
 ## Contrôle d'un export : vérifie que les fichiers lus directement par le jeu (données JSON, sons .wav, shaders, scène
 ## principale) sont bien dans le paquet. Sans eux, le jeu ne démarre pas (JSON) ou reste muet (WAV) sans planter.
 ##
-##   binaire_exporté --headless --script res://scripts/dev/export_check.gd
-##   godot --headless --path . --script scripts/dev/export_check.gd        (depuis les sources)
+## Lancé par le jeu lui-même avec l'option « --export-check » (après « -- ») :
+##   binaire_exporté --headless -- --export-check
+##   godot --headless --path . -- --export-check        (depuis les sources)
 ##
 ## Imprime « EXPORT_CHECK_OK » et rend le code 0 si tout est présent ; sinon liste les manques et rend le code 1.
 
@@ -21,9 +22,14 @@ const REQUIRED_JSON := [
 const REQUIRED_WAV := ["res://audio/radio/voices.wav"]
 const SFX_DIR := "res://audio/sfx"
 const MIN_SFX := 20
+const REQUIRED_RES := [
+	"res://scenes/main.tscn", "res://shaders/thermal_post.gdshader", "res://shaders/thermal_ground.gdshader",
+	"res://shaders/thermal_building.gdshader", "res://shaders/thermal_human.gdshader",
+]
 
 
-func _initialize() -> void:
+## Rend le code de sortie (0 : tout est présent).
+static func run() -> int:
 	var problems: Array[String] = []
 	var checked := 0
 
@@ -59,16 +65,14 @@ func _initialize() -> void:
 			problems.append("son illisible : " + path)
 		checked += 1
 
-	for path in ["res://scenes/main.tscn", "res://shaders/thermal_post.gdshader", "res://shaders/thermal_ground.gdshader",
-			"res://shaders/thermal_building.gdshader", "res://shaders/thermal_human.gdshader", "res://scripts/main.gd"]:
+	for path in REQUIRED_RES:
 		if not ResourceLoader.exists(path) or load(path) == null:
 			problems.append("ressource absente ou illisible : " + path)
 		checked += 1
 
 	if problems.is_empty():
 		print("EXPORT_CHECK_OK ", checked, " fichiers contrôlés")
-		quit(0)
-	else:
-		for p in problems:
-			printerr("EXPORT_CHECK_ECHEC ", p)
-		quit(1)
+		return 0
+	for p in problems:
+		printerr("EXPORT_CHECK_ECHEC ", p)
+	return 1
