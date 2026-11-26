@@ -1134,6 +1134,12 @@ scripts/ui/ui_kit.gd     thème, étoiles, icônes de résultat, boutons, insign
 scripts/dev/autopilot.gd pilote automatique pour captures et essais
 tests/sim_test.gd        tests logiques sans affichage
 tests/viewer.gd          banc d'essai des personnages : planches de marche, course, variété, états, tour complet
+scripts/dev/export_check.gd  contrôle d'un export : données, sons et shaders présents dans le paquet (lancé par la compilation)
+export_presets.cfg       préréglages d'export Windows, Linux et macOS (version, icône, filtres de fichiers)
+.github/workflows/       compilation chez GitHub : essais, exports, .deb, .dmg, Release sur étiquette (+ actions/setup-godot)
+tools/release/           build_deb.sh : assemble le paquet Debian
+packaging/               fichiers des paquets : stryge.desktop (Linux), LISEZMOI.txt (image .dmg)
+LICENSE, THIRD_PARTY_NOTICES.md  licence MIT du projet ; licences des données et composants tiers
 ```
 
 La simulation est séparée de l'affichage : les tests tournent sans rendu.
@@ -1289,11 +1295,59 @@ s'appliquent aussi au pilote automatique.
 
 Les messages d'erreur ALSA (pas de carte son) et « ObjectDB instances leaked » en fin d'exécution sont sans conséquence.
 
-## Export
+## Export et compilation (.exe, .deb, .dmg)
 
-Dans l'éditeur : Projet > Exporter. Dans l'onglet *Ressources*, ajouter `*.json, *.wav` au filtre d'inclusion des
-fichiers non ressources, sinon `data/*.json` et `audio/**/*.wav` ne sont pas embarqués (le jeu ne démarre pas sans les
-premiers ; il est muet sans les seconds). Les sons sont lus directement, sans import par l'éditeur.
+**La compilation se fait chez GitHub, pas sur un poste de développement** : le workflow `.github/workflows/build.yml` installe Godot
+4.7.2 (empreintes SHA-512 vérifiées), exporte le jeu et produit les trois fichiers.
+
+| Système | Fichier | Fabriqué sur | Installation |
+|---|---|---|---|
+| Windows 64 bits | `Stryge-<version>-windows-x86_64.exe` (un seul fichier, `.pck` embarqué) | export Godot sur Linux | double-clic ; si SmartScreen s'affiche : « Informations complémentaires » puis « Exécuter quand même » |
+| Ubuntu / Debian (amd64) | `stryge_<version>_amd64.deb` | `tools/release/build_deb.sh` | `sudo apt install ./stryge_<version>_amd64.deb`, puis `stryge` ou le menu des applications |
+| macOS (Apple Silicon et Intel) | `Stryge-<version>-macos-universal.dmg` | `hdiutil` sur un runner macOS | glisser Stryge dans Applications ; premier lancement : voir `packaging/macos/LISEZMOI.txt` (copié dans l'image) |
+
+**Obtenir les fichiers.** Onglet *Actions* du dépôt > *Compilation (exe, deb, dmg)* > *Run workflow* : les trois fichiers sont dans les
+*Artifacts* de l'exécution. Pour une *Release* GitHub (fichiers + `SHA256SUMS.txt`), pousser une étiquette qui correspond à
+`config/version` de `project.godot` (aujourd'hui `0.8.0`) :
+
+```bash
+git tag v0.8.0 && git push origin v0.8.0
+```
+
+Avant de fabriquer quoi que ce soit, le workflow lance la suite d'essais, vérifie que la version est la même dans `project.godot` et
+dans `export_presets.cfg` (à changer aux deux endroits : `application/version`, `application/short_version`, `application/file_version`),
+puis **fait tourner le binaire exporté lui-même** (Linux, macOS, et l'`.exe` sous Windows) avec `scripts/dev/export_check.gd`, qui contrôle
+que les données JSON, les sons et les shaders sont bien dans le paquet.
+
+**Pourquoi des fichiers `*.wav.import` dans le dépôt.** Le jeu lit ses sons directement (`AudioStreamWAV.load_from_file`) et ses données
+avec `FileAccess`. Un export normal importe les `.wav` et ne livre plus le fichier d'origine : le jeu serait **muet sans erreur**.
+Chaque `audio/**/*.wav.import` contient `importer="keep"` (fichier livré tel quel). Les `.json` sont livrés par le filtre
+`include_filter="*.json"` des trois préréglages d'`export_presets.cfg`. Un nouveau `.wav` ou `.json` lu directement doit suivre la même règle.
+
+**Export à la main** (éditeur Godot 4.7.2 et ses modèles d'export installés) :
+
+```bash
+godot --headless --path . --import
+godot --headless --path . --export-release "Linux (x86_64)" build/linux/stryge.x86_64
+tools/release/build_deb.sh build/linux/stryge.x86_64 0.8.0 build   # paquet .deb
+```
+
+**Ce que ces fichiers ne sont pas.**
+
+- Ils ne sont **pas signés** (ni Authenticode, ni identifiant de développeur Apple, ni notarisation) : Windows et macOS affichent un
+  avertissement au premier lancement. Le `.app` reçoit une signature « ad hoc » (nécessaire pour démarrer sur Apple Silicon), qui n'authentifie personne.
+- L'`.exe` est un fichier unique, sans les bibliothèques ANGLE : il suppose un pilote OpenGL 3.3 natif (une machine virtuelle ou un très vieux
+  processeur graphique peut ne pas démarrer). `application/export_angle` d'`export_presets.cfg` est réglé sur « Auto ».
+- Les trois paquets n'ont été contrôlés que **sans affichage** (démarrage, données, sons chargés). Aucun humain ne les a lancés sur un Windows, un Mac ou
+  un Ubuntu réels : l'affichage, le son entendu et les performances ne sont pas vérifiés.
+- Pas de version arm64 (Linux, Windows) ni 32 bits ; le `.dmg` est universel (Apple Silicon et Intel).
+- Le champ « Maintainer » du `.deb` est une adresse générique (`noreply@github.com`) à remplacer dans `tools/release/build_deb.sh`.
+
+## Licence
+
+Le code et le contenu original sont sous **licence MIT** (`LICENSE`, © 2026 Martial Limousin). Cela ne couvre **pas** les cartes
+(`data/cities/*.json`, dérivées de l'IGN BD TOPO et d'OpenStreetMap), les voix de synthèse ni le moteur Godot embarqué dans les exécutables :
+leurs licences, leurs attributions obligatoires et ce qui n'a pas été vérifié sont dans `THIRD_PARTY_NOTICES.md`.
 
 ## Limites connues et suites
 

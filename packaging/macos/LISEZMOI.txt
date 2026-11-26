@@ -1,0 +1,17 @@
+STRYGE - premier lancement sur macOS
+=====================================
+
+1. Glissez « Stryge » dans le dossier « Applications ».
+
+2. Cette application n'est pas signée par un développeur Apple identifié ni notarisée :
+   macOS la bloque au premier lancement. Pour l'ouvrir, au choix :
+
+   a) Essayez de l'ouvrir une fois, puis allez dans
+      Réglages Système > Confidentialité et sécurité, descendez jusqu'au message
+      concernant « Stryge » et cliquez sur « Ouvrir quand même ».
+
+   b) Ou, dans le Terminal :
+         xattr -dr com.apple.quarantine /Applications/Stryge.app
+
+Le jeu n'envoie aucune donnée sur Internet. Licence MIT (LICENSE.txt) ;
+licences des données et composants tiers : NOTICES-TIERS.md.

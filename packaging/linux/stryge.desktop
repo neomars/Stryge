@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Stryge
+GenericName=Canonnière de nuit
+Comment=Canonnière de nuit au-dessus de Paris : protégez les civils des infectés
+Exec=/usr/games/stryge
+Icon=stryge
+Terminal=false
+Categories=Game;ActionGame;
+Keywords=jeu;canonnière;zombies;Paris;thermique;
+StartupWMClass=Stryge

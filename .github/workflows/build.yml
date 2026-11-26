@@ -1,0 +1,227 @@
+name: Compilation (exe, deb, dmg)
+
+# Manuel : onglet Actions > « Compilation » > Run workflow (les fichiers sont dans les « Artifacts » de l'exécution).
+# Sur une étiquette « vX.Y.Z » (qui doit correspondre à config/version de project.godot) : en plus, une Release GitHub
+# est créée avec les trois fichiers et leurs empreintes SHA-256.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GODOT_VERSION: "4.7.2"
+
+jobs:
+  tests:
+    name: Essais du jeu (sans rendu)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-godot
+        with:
+          version: ${{ env.GODOT_VERSION }}
+      - name: Suite d'essais
+        run: |
+          set -o pipefail
+          timeout 3000 godot --headless --path . -s tests/sim_test.gd 2>&1 | tee tests.log
+          tail -n 3 tests.log
+
+  export:
+    name: Export Windows / Linux / macOS et paquet .deb
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version du jeu
+        id: ver
+        run: |
+          set -euo pipefail
+          v=$(sed -nE 's/^config\/version="([^"]+)".*/\1/p' project.godot)
+          [ -n "$v" ] || { echo "config/version absent de project.godot"; exit 1; }
+          for k in application/version application/short_version; do
+            grep -q "^$k=\"$v\"" export_presets.cfg || { echo "$k n'est pas $v dans export_presets.cfg"; exit 1; }
+          done
+          grep -q "^application/file_version=\"$v.0\"" export_presets.cfg || { echo "file_version n'est pas $v.0"; exit 1; }
+          if [ "$GITHUB_REF_TYPE" = tag ] && [ "$GITHUB_REF_NAME" != "v$v" ]; then
+            echo "l'étiquette $GITHUB_REF_NAME ne correspond pas à la version v$v de project.godot"; exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "Version : $v"
+
+      - uses: ./.github/actions/setup-godot
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          templates: "true"
+
+      - name: Importer le projet
+        run: timeout 600 godot --headless --path . --import || true
+
+      - name: Exporter (Windows, Linux, macOS)
+        run: |
+          set -euo pipefail
+          mkdir -p build/windows build/linux build/macos dist
+          timeout 900 godot --headless --path . --export-release "Windows (x86_64)" build/windows/Stryge.exe
+          timeout 900 godot --headless --path . --export-release "Linux (x86_64)" build/linux/stryge.x86_64
+          timeout 900 godot --headless --path . --export-release "macOS (universel)" build/macos/Stryge.zip
+          ls -la build/windows build/linux build/macos
+          test -s build/windows/Stryge.exe && test -s build/linux/stryge.x86_64 && test -s build/macos/Stryge.zip
+
+      - name: Contrôler le binaire Linux exporté (données et sons présents dans le paquet)
+        run: |
+          set -o pipefail
+          chmod +x build/linux/stryge.x86_64
+          timeout 300 build/linux/stryge.x86_64 --headless --script res://scripts/dev/export_check.gd 2>&1 | tee check.log
+          grep -q '^EXPORT_CHECK_OK' check.log
+          # le jeu lui-même démarre sans erreur de script
+          timeout 120 build/linux/stryge.x86_64 --headless --quit-after 200 2>&1 | tee run.log || true
+          ! grep -E 'SCRIPT ERROR|Parse Error|Données de jeu introuvables' run.log
+
+      - name: Assembler le paquet .deb
+        run: |
+          set -euo pipefail
+          V="${{ steps.ver.outputs.version }}"
+          tools/release/build_deb.sh build/linux/stryge.x86_64 "$V" dist
+          cp build/windows/Stryge.exe "dist/Stryge-$V-windows-x86_64.exe"
+          dpkg-deb --info "dist/stryge_${V}_amd64.deb"
+          dpkg-deb --contents "dist/stryge_${V}_amd64.deb"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-exe
+          path: dist/*.exe
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-deb
+          path: dist/*.deb
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-app
+          path: build/macos/Stryge.zip
+          if-no-files-found: error
+
+  windows-check:
+    name: Contrôle de l'.exe sous Windows
+    needs: export
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-exe
+          path: dist
+      - name: Lancer le contrôle avec l'exécutable exporté
+        shell: pwsh
+        run: |
+          $exe = (Get-ChildItem dist -Filter *.exe | Select-Object -First 1).FullName
+          Write-Host "Exécutable : $exe"
+          $p = Start-Process -FilePath $exe -ArgumentList '--headless','--script','res://scripts/dev/export_check.gd','--log-file','check.log' -Wait -PassThru
+          if (Test-Path check.log) { Get-Content check.log }
+          if ($p.ExitCode -ne 0) { throw "code de sortie $($p.ExitCode)" }
+          if (-not (Select-String -Path check.log -Pattern '^EXPORT_CHECK_OK' -Quiet)) { throw "EXPORT_CHECK_OK absent du journal" }
+
+  dmg:
+    name: Image disque .dmg (macOS)
+    needs: export
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: packaging
+      - uses: actions/download-artifact@v4
+        with:
+          name: macos-app
+          path: in
+      - name: Préparer l'application (signature ad hoc) et contrôler son contenu
+        run: |
+          set -euo pipefail
+          rm -rf stage && mkdir stage
+          ditto -x -k in/Stryge.zip stage
+          APP=$(ls -d stage/*.app | head -1)
+          echo "Application : $APP"
+          xattr -cr "$APP"
+          codesign --force --deep --sign - "$APP"
+          codesign --verify --deep --strict --verbose=2 "$APP"
+          BIN=$(ls "$APP"/Contents/MacOS/* | head -1)
+          file "$BIN"
+          set -o pipefail
+          timeout 300 "$BIN" --headless --script res://scripts/dev/export_check.gd 2>&1 | tee check.log
+          grep -q '^EXPORT_CHECK_OK' check.log
+
+      - name: Créer le .dmg
+        run: |
+          set -euo pipefail
+          V="${{ needs.export.outputs.version }}"
+          OUT="Stryge-$V-macos-universal.dmg"
+          ln -s /Applications stage/Applications
+          cp LICENSE stage/LICENSE.txt
+          cp THIRD_PARTY_NOTICES.md stage/NOTICES-TIERS.md
+          cp packaging/macos/LISEZMOI.txt stage/LISEZMOI.txt
+          for i in 1 2 3; do
+            hdiutil create -volname "Stryge" -srcfolder stage -ov -format UDZO -fs HFS+ "$OUT" && break
+            echo "hdiutil a échoué (essai $i), nouvel essai"; sleep 5
+          done
+          hdiutil verify "$OUT"
+          # contrôle depuis l'image montée
+          MNT=$(mktemp -d)
+          hdiutil attach -nobrowse -readonly -mountpoint "$MNT" "$OUT"
+          ls -la "$MNT"
+          BIN=$(ls "$MNT"/Stryge.app/Contents/MacOS/* | head -1)
+          set -o pipefail
+          timeout 300 "$BIN" --headless --script res://scripts/dev/export_check.gd 2>&1 | tee check-dmg.log
+          hdiutil detach "$MNT"
+          grep -q '^EXPORT_CHECK_OK' check-dmg.log
+          ls -la "$OUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-dmg
+          path: Stryge-*.dmg
+          if-no-files-found: error
+
+  release:
+    name: Publier la Release
+    if: github.ref_type == 'tag'
+    needs: [tests, export, windows-check, dmg]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Créer la Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          V: ${{ needs.export.outputs.version }}
+        run: |
+          set -euo pipefail
+          cd dist
+          rm -f Stryge.zip
+          sha256sum -- * > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+          cd ..
+          cat > notes.md <<EOF
+          Stryge $V : canonnière de nuit au-dessus de Paris (prototype jouable).
+
+          | Système | Fichier | Installation |
+          |---|---|---|
+          | Windows 64 bits | \`Stryge-$V-windows-x86_64.exe\` | double-clic ; si SmartScreen s'affiche : « Informations complémentaires » puis « Exécuter quand même » |
+          | Ubuntu / Debian (amd64) | \`stryge_${V}_amd64.deb\` | \`sudo apt install ./stryge_${V}_amd64.deb\`, puis la commande \`stryge\` ou le menu des applications |
+          | macOS (Apple Silicon et Intel) | \`Stryge-$V-macos-universal.dmg\` | glisser Stryge dans Applications ; au premier lancement, voir LISEZMOI.txt dans l'image |
+
+          Les fichiers ne sont **pas signés** par un éditeur reconnu (ni Authenticode, ni Apple Developer ID, ni notarisation) :
+          Windows et macOS afficheront un avertissement au premier lancement. Empreintes SHA-256 dans \`SHA256SUMS.txt\`.
+          Licence MIT ; licences des données et composants tiers : \`THIRD_PARTY_NOTICES.md\`.
+          EOF
+          gh release create "$GITHUB_REF_NAME" dist/* LICENSE THIRD_PARTY_NOTICES.md \
+            --repo "$GITHUB_REPOSITORY" --title "Stryge $V" --notes-file notes.md --verify-tag
