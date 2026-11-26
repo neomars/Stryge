@@ -5,6 +5,8 @@ extends RefCounted
 ## Lancé par le jeu lui-même avec l'option « --export-check » (après « -- ») :
 ##   binaire_exporté --headless -- --export-check
 ##   godot --headless --path . -- --export-check        (depuis les sources)
+##   ... --export-check --check-out=/chemin/rapport.txt (écrit aussi le rapport dans ce fichier : utile sous Windows, où
+##                                                       l'exécutable graphique n'affiche rien dans la console)
 ##
 ## Imprime « EXPORT_CHECK_OK » et rend le code 0 si tout est présent ; sinon liste les manques et rend le code 1.
 
@@ -28,8 +30,8 @@ const REQUIRED_RES := [
 ]
 
 
-## Rend le code de sortie (0 : tout est présent).
-static func run() -> int:
+## Rend le code de sortie (0 : tout est présent). report_path : fichier où écrire aussi le rapport (vide : aucun).
+static func run(report_path: String = "") -> int:
 	var problems: Array[String] = []
 	var checked := 0
 
@@ -70,9 +72,20 @@ static func run() -> int:
 			problems.append("ressource absente ou illisible : " + path)
 		checked += 1
 
+	var report: Array[String] = []
 	if problems.is_empty():
-		print("EXPORT_CHECK_OK ", checked, " fichiers contrôlés")
-		return 0
-	for p in problems:
-		printerr("EXPORT_CHECK_ECHEC ", p)
-	return 1
+		report.append("EXPORT_CHECK_OK %d fichiers contrôlés" % checked)
+	else:
+		for p in problems:
+			report.append("EXPORT_CHECK_ECHEC " + p)
+	for line in report:
+		if problems.is_empty():
+			print(line)
+		else:
+			printerr(line)
+	if not report_path.is_empty():
+		var f := FileAccess.open(report_path, FileAccess.WRITE)
+		if f != null:
+			f.store_string("\n".join(report) + "\n")
+			f.close()
+	return 0 if problems.is_empty() else 1

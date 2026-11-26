@@ -110,6 +110,7 @@ jobs:
     name: Contrôle de l'.exe sous Windows
     needs: export
     runs-on: windows-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -120,15 +121,18 @@ jobs:
         run: |
           $exe = (Get-ChildItem dist -Filter *.exe | Select-Object -First 1).FullName
           Write-Host "Exécutable : $exe"
-          $p = Start-Process -FilePath $exe -ArgumentList '--headless','--log-file','check.log','--','--export-check' -Wait -PassThru
-          if (Test-Path check.log) { Get-Content check.log }
+          $report = Join-Path $PWD 'check.txt'
+          $p = Start-Process -FilePath $exe -ArgumentList '--headless','--','--export-check',"--check-out=$report" -Wait -PassThru
+          Write-Host "Code de sortie : $($p.ExitCode)"
+          if (Test-Path $report) { Get-Content $report } else { throw "aucun rapport écrit par l'exécutable" }
           if ($p.ExitCode -ne 0) { throw "code de sortie $($p.ExitCode)" }
-          if (-not (Select-String -Path check.log -Pattern '^EXPORT_CHECK_OK' -Quiet)) { throw "EXPORT_CHECK_OK absent du journal" }
+          if (-not (Select-String -Path $report -Pattern '^EXPORT_CHECK_OK' -Quiet)) { throw "EXPORT_CHECK_OK absent du rapport" }
 
   dmg:
     name: Image disque .dmg (macOS)
     needs: export
     runs-on: macos-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
@@ -150,7 +154,7 @@ jobs:
           BIN=$(ls "$APP"/Contents/MacOS/* | head -1)
           file "$BIN"
           set -o pipefail
-          timeout 300 "$BIN" --headless -- --export-check 2>&1 | tee check.log
+          "$BIN" --headless -- --export-check 2>&1 | tee check.log
           grep -q '^EXPORT_CHECK_OK' check.log
 
       - name: Créer le .dmg
@@ -173,7 +177,7 @@ jobs:
           ls -la "$MNT"
           BIN=$(ls "$MNT"/Stryge.app/Contents/MacOS/* | head -1)
           set -o pipefail
-          timeout 300 "$BIN" --headless -- --export-check 2>&1 | tee check-dmg.log
+          "$BIN" --headless -- --export-check 2>&1 | tee check-dmg.log
           hdiutil detach "$MNT"
           grep -q '^EXPORT_CHECK_OK' check-dmg.log
           ls -la "$OUT"

@@ -72,7 +72,7 @@ func _ready() -> void:
 		# contrôle d'un export (compilation GitHub) : données, sons et shaders présents dans le paquet
 		set_process(false)
 		set_process_input(false)
-		get_tree().quit(ExportCheck.run())
+		get_tree().quit(ExportCheck.run(str(args.get("check-out", ""))))
 		return
 	ctx = Ctx.new()
 
