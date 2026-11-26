@@ -1,0 +1,114 @@
+{
+  "weapons": [
+    {
+      "id": "gau12",
+      "name": "GAU-12 25 mm",
+      "label": "GAU-12",
+      "caliber_mm": 25,
+      "reticle": "circle",
+      "short": "25 MM",
+      "rpm": 1800,
+      "fov_deg": 4.0,
+      "flight_time_s": 0.8,
+      "dispersion_mrad": 1.8,
+      "splash_radius_m": 3.2,
+      "damage_person": 28,
+      "damage_building": 0.3,
+      "ammo": 3000,
+      "tracer_every": 4,
+      "shake": 0.25,
+      "flash": 0.55,
+      "flash_radius_m": 2.6,
+      "regen_per_s": 20,
+      "sfx": {
+        "mode": "burst",
+        "start": "gau_burst",
+        "tail": "gau_tail",
+        "gain_db": -3.0
+      }
+    },
+    {
+      "id": "bofors40",
+      "name": "Bofors L60 40 mm",
+      "label": "BOFORS L60",
+      "caliber_mm": 40,
+      "reticle": "brackets",
+      "short": "40 MM",
+      "rpm": 100,
+      "fov_deg": 6.5,
+      "flight_time_s": 1.1,
+      "dispersion_mrad": 1.4,
+      "splash_radius_m": 8.0,
+      "damage_person": 130,
+      "damage_building": 7,
+      "ammo": 240,
+      "tracer_every": 1,
+      "shake": 0.8,
+      "flash": 0.9,
+      "flash_radius_m": 7.0,
+      "regen_per_s": 0.5,
+      "sfx": {
+        "mode": "single",
+        "samples": [
+          "bofors_1",
+          "bofors_2",
+          "bofors_3"
+        ],
+        "gain_db": -1.0,
+        "reload": [
+          [
+            0.3,
+            "bofors_clack",
+            -4.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "m102",
+      "name": "Obusier M102 105 mm",
+      "label": "OBUSIER M102",
+      "caliber_mm": 105,
+      "reticle": "square",
+      "short": "105 MM",
+      "rpm": 10,
+      "fov_deg": 10.0,
+      "flight_time_s": 1.5,
+      "dispersion_mrad": 0.8,
+      "splash_radius_m": 22.0,
+      "damage_person": 500,
+      "damage_building": 100,
+      "ammo": 60,
+      "tracer_every": 1,
+      "shake": 2.2,
+      "flash": 1.0,
+      "flash_radius_m": 22.0,
+      "regen_per_s": 0.1,
+      "sfx": {
+        "mode": "single",
+        "samples": [
+          "m102_1",
+          "m102_2"
+        ],
+        "gain_db": 0.0,
+        "reload": [
+          [
+            0.95,
+            "m102_eject",
+            -4.0
+          ],
+          [
+            3.4,
+            "m102_load",
+            -4.0
+          ],
+          [
+            5.5,
+            "m102_latch",
+            -2.0
+          ]
+        ]
+      }
+    }
+  ]
+}

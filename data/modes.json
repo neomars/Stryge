@@ -1,0 +1,31 @@
+{
+ "_commentaire": "Modes de jeu hors campagne. Les deux modes s'ouvrent après la première victoire (unlock_wins). daily : défi du jour, un scénario par date (secteur, graine de la ville, mutateurs) tiré de la date seule, donc identique pour tous les joueurs et à chaque essai. mutators : probabilités d'avoir 0, 1 ou 2 mutateurs. first : prime du premier défi de la journée ; streak : prime par jour consécutif (plafonnée à max_days). board : taille du classement local. endless : « Nuit blanche », nuit sans aube sur un secteur déjà gagné ; les vagues sont engendrées à la volée : intervalle entre vagues (de interval_s[0] à interval_s[1] en ramp_s secondes), effectif (de count[0] à count[1] en count_ramp_s s), vie des infectés (+hp_growth sur hp_ramp_s s), part de coureurs ; every : une vague de ce type toutes les n vagues (à partir de from). Les gains sont : XP et crédits = score × per_score + vagues × per_wave + minutes × per_min. rating : seuils de note C, B, A, S.",
+ "unlock_wins": 1,
+ "daily": {
+  "level": "veteran",
+  "mutators": [0.35, 0.45, 0.20],
+  "first": {"xp": 120, "credits": 60},
+  "streak": {"xp": 30, "credits": 15, "max_days": 7},
+  "board": 10
+ },
+ "endless": {
+  "max_lost": 60, "start_zombies": 12,
+  "first_wave_s": 25.0, "interval_s": [30.0, 14.0], "ramp_s": 780.0,
+  "count": [7, 30], "count_ramp_s": 960.0,
+  "hp_growth": 1.0, "hp_ramp_s": 1500.0,
+  "runner_ratio": [0.2, 0.5],
+  "assault": {"every": 3, "from": 3, "zombies": [4, 9], "min_occ": 4},
+  "breach": {"every": 4, "from": 4, "max_occ": 24},
+  "metro": {"every": 3, "from": 2},
+  "specials": {
+   "screamer": {"every": 4, "from": 4},
+   "alpha": {"every": 5, "from": 6},
+   "colossus": {"every": 6, "from": 8}
+  },
+  "wave_points": [60, 15],
+  "objective_cycle_s": 300.0, "objective_cycles": 8,
+  "xp": {"per_score": 0.08, "per_wave": 20, "per_min": 12},
+  "credits": {"per_score": 0.008, "per_wave": 4, "per_min": 3},
+  "rating": [3000, 8000, 15000, 26000]
+ }
+}

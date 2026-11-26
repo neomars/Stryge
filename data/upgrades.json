@@ -1,0 +1,899 @@
+{
+ "_commentaire": "Atelier d'améliorations. Chaque niveau donne l'effet TOTAL du niveau (pas un ajout au précédent). Clés d'effet : « w<i>.<stat> » = variation relative d'une statistique de l'arme i (« w* » = toutes les armes) ; « mod.<clé> » = valeur absolue lue par le jeu (predict, zoom_max, laser, door_hp, civ_speed, obj_time_s, chain_keep, xp_bonus, credit_bonus). cost = crédits d'appui ; grade = indice de grade minimal.",
+ "categories": [
+  {
+   "id": "weapon_0",
+   "name": "GAU-12 25 MM",
+   "weapon": 0
+  },
+  {
+   "id": "weapon_1",
+   "name": "BOFORS 40 MM",
+   "weapon": 1
+  },
+  {
+   "id": "weapon_2",
+   "name": "OBUSIER 105 MM",
+   "weapon": 2
+  },
+  {
+   "id": "sensor",
+   "name": "CAPTEURS"
+  },
+  {
+   "id": "crew",
+   "name": "ÉQUIPAGE"
+  },
+  {
+   "id": "support",
+   "name": "APPUIS"
+  }
+ ],
+ "items": [
+  {
+   "id": "g25_ammo",
+   "cat": "weapon_0",
+   "name": "Caissons supplémentaires",
+   "text": "Plus de munitions et régénération plus rapide pour le 25 mm.",
+   "levels": [
+    {
+     "cost": 100,
+     "grade": 0,
+     "desc": "+20 % de munitions, +20 % de régénération",
+     "effects": {
+      "w0.ammo": 0.2,
+      "w0.regen_per_s": 0.2
+     }
+    },
+    {
+     "cost": 250,
+     "grade": 2,
+     "desc": "+40 % de munitions, +40 % de régénération",
+     "effects": {
+      "w0.ammo": 0.4,
+      "w0.regen_per_s": 0.4
+     }
+    },
+    {
+     "cost": 500,
+     "grade": 4,
+     "desc": "+60 % de munitions, +60 % de régénération",
+     "effects": {
+      "w0.ammo": 0.6,
+      "w0.regen_per_s": 0.6
+     }
+    }
+   ]
+  },
+  {
+   "id": "g25_acc",
+   "cat": "weapon_0",
+   "name": "Canon rayé",
+   "text": "Dispersion réduite pour le 25 mm.",
+   "levels": [
+    {
+     "cost": 120,
+     "grade": 0,
+     "desc": "dispersion −10 %",
+     "effects": {
+      "w0.dispersion_mrad": -0.1
+     }
+    },
+    {
+     "cost": 280,
+     "grade": 2,
+     "desc": "dispersion −20 %",
+     "effects": {
+      "w0.dispersion_mrad": -0.2
+     }
+    },
+    {
+     "cost": 550,
+     "grade": 4,
+     "desc": "dispersion −30 %",
+     "effects": {
+      "w0.dispersion_mrad": -0.3
+     }
+    }
+   ]
+  },
+  {
+   "id": "g25_dmg",
+   "cat": "weapon_0",
+   "name": "Munitions explosives",
+   "text": "Plus de dégâts et un éclat plus large pour le 25 mm.",
+   "levels": [
+    {
+     "cost": 130,
+     "grade": 1,
+     "desc": "+15 % de dégâts sur les personnes, rayon d'éclat +8 %",
+     "effects": {
+      "w0.damage_person": 0.15,
+      "w0.splash_radius_m": 0.08,
+      "w0.flash_radius_m": 0.08
+     }
+    },
+    {
+     "cost": 300,
+     "grade": 3,
+     "desc": "+30 % de dégâts sur les personnes, rayon d'éclat +16 %",
+     "effects": {
+      "w0.damage_person": 0.3,
+      "w0.splash_radius_m": 0.16,
+      "w0.flash_radius_m": 0.16
+     }
+    },
+    {
+     "cost": 580,
+     "grade": 5,
+     "desc": "+45 % de dégâts sur les personnes, rayon d'éclat +24 %",
+     "effects": {
+      "w0.damage_person": 0.45,
+      "w0.splash_radius_m": 0.24,
+      "w0.flash_radius_m": 0.24
+     }
+    }
+   ]
+  },
+  {
+   "id": "g25_rate",
+   "cat": "weapon_0",
+   "name": "Cadence soutenue",
+   "text": "Le GAU-12 tire plus vite (et vide plus vite ses caissons).",
+   "levels": [
+    {
+     "cost": 150,
+     "grade": 1,
+     "desc": "+8 % de cadence",
+     "effects": {
+      "w0.rpm": 0.08
+     }
+    },
+    {
+     "cost": 320,
+     "grade": 3,
+     "desc": "+16 % de cadence",
+     "effects": {
+      "w0.rpm": 0.16
+     }
+    },
+    {
+     "cost": 620,
+     "grade": 5,
+     "desc": "+24 % de cadence",
+     "effects": {
+      "w0.rpm": 0.24
+     }
+    }
+   ]
+  },
+  {
+   "id": "b40_ammo",
+   "cat": "weapon_1",
+   "name": "Chargeurs supplémentaires",
+   "text": "Plus de munitions et régénération plus rapide pour le 40 mm.",
+   "levels": [
+    {
+     "cost": 100,
+     "grade": 0,
+     "desc": "+15 % de munitions, +25 % de régénération",
+     "effects": {
+      "w1.ammo": 0.15,
+      "w1.regen_per_s": 0.25
+     }
+    },
+    {
+     "cost": 250,
+     "grade": 2,
+     "desc": "+30 % de munitions, +50 % de régénération",
+     "effects": {
+      "w1.ammo": 0.3,
+      "w1.regen_per_s": 0.5
+     }
+    },
+    {
+     "cost": 500,
+     "grade": 4,
+     "desc": "+45 % de munitions, +75 % de régénération",
+     "effects": {
+      "w1.ammo": 0.45,
+      "w1.regen_per_s": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "id": "b40_acc",
+   "cat": "weapon_1",
+   "name": "Tube rectifié",
+   "text": "Dispersion réduite pour le 40 mm.",
+   "levels": [
+    {
+     "cost": 120,
+     "grade": 0,
+     "desc": "dispersion −10 %",
+     "effects": {
+      "w1.dispersion_mrad": -0.1
+     }
+    },
+    {
+     "cost": 280,
+     "grade": 2,
+     "desc": "dispersion −20 %",
+     "effects": {
+      "w1.dispersion_mrad": -0.2
+     }
+    },
+    {
+     "cost": 550,
+     "grade": 4,
+     "desc": "dispersion −30 %",
+     "effects": {
+      "w1.dispersion_mrad": -0.3
+     }
+    }
+   ]
+  },
+  {
+   "id": "b40_dmg",
+   "cat": "weapon_1",
+   "name": "Obus à fragmentation",
+   "text": "Plus de dégâts et un éclat plus large pour le 40 mm.",
+   "levels": [
+    {
+     "cost": 130,
+     "grade": 1,
+     "desc": "+15 % de dégâts sur les personnes, +10 % de dégâts sur les immeubles, rayon d'éclat +8 %",
+     "effects": {
+      "w1.damage_person": 0.15,
+      "w1.damage_building": 0.1,
+      "w1.splash_radius_m": 0.08,
+      "w1.flash_radius_m": 0.08
+     }
+    },
+    {
+     "cost": 300,
+     "grade": 3,
+     "desc": "+30 % de dégâts sur les personnes, +20 % de dégâts sur les immeubles, rayon d'éclat +16 %",
+     "effects": {
+      "w1.damage_person": 0.3,
+      "w1.damage_building": 0.2,
+      "w1.splash_radius_m": 0.16,
+      "w1.flash_radius_m": 0.16
+     }
+    },
+    {
+     "cost": 580,
+     "grade": 5,
+     "desc": "+45 % de dégâts sur les personnes, +30 % de dégâts sur les immeubles, rayon d'éclat +24 %",
+     "effects": {
+      "w1.damage_person": 0.45,
+      "w1.damage_building": 0.3,
+      "w1.splash_radius_m": 0.24,
+      "w1.flash_radius_m": 0.24
+     }
+    }
+   ]
+  },
+  {
+   "id": "b40_rate",
+   "cat": "weapon_1",
+   "name": "Chargeur automatique",
+   "text": "Cadence du Bofors plus élevée.",
+   "levels": [
+    {
+     "cost": 150,
+     "grade": 1,
+     "desc": "+10 % de cadence",
+     "effects": {
+      "w1.rpm": 0.1
+     }
+    },
+    {
+     "cost": 320,
+     "grade": 3,
+     "desc": "+20 % de cadence",
+     "effects": {
+      "w1.rpm": 0.2
+     }
+    },
+    {
+     "cost": 620,
+     "grade": 5,
+     "desc": "+30 % de cadence",
+     "effects": {
+      "w1.rpm": 0.3
+     }
+    }
+   ]
+  },
+  {
+   "id": "m102_ammo",
+   "cat": "weapon_2",
+   "name": "Soute à obus",
+   "text": "Plus de munitions et régénération plus rapide pour le 105 mm.",
+   "levels": [
+    {
+     "cost": 100,
+     "grade": 0,
+     "desc": "+15 % de munitions, +25 % de régénération",
+     "effects": {
+      "w2.ammo": 0.15,
+      "w2.regen_per_s": 0.25
+     }
+    },
+    {
+     "cost": 250,
+     "grade": 2,
+     "desc": "+30 % de munitions, +50 % de régénération",
+     "effects": {
+      "w2.ammo": 0.3,
+      "w2.regen_per_s": 0.5
+     }
+    },
+    {
+     "cost": 500,
+     "grade": 4,
+     "desc": "+45 % de munitions, +75 % de régénération",
+     "effects": {
+      "w2.ammo": 0.45,
+      "w2.regen_per_s": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "id": "m102_acc",
+   "cat": "weapon_2",
+   "name": "Tube rectifié",
+   "text": "Dispersion réduite pour le 105 mm.",
+   "levels": [
+    {
+     "cost": 120,
+     "grade": 0,
+     "desc": "dispersion −10 %",
+     "effects": {
+      "w2.dispersion_mrad": -0.1
+     }
+    },
+    {
+     "cost": 280,
+     "grade": 2,
+     "desc": "dispersion −20 %",
+     "effects": {
+      "w2.dispersion_mrad": -0.2
+     }
+    },
+    {
+     "cost": 550,
+     "grade": 4,
+     "desc": "dispersion −30 %",
+     "effects": {
+      "w2.dispersion_mrad": -0.3
+     }
+    }
+   ]
+  },
+  {
+   "id": "m102_dmg",
+   "cat": "weapon_2",
+   "name": "Charge renforcée",
+   "text": "Un éclat plus large et des dégâts plus lourds pour le 105 mm.",
+   "levels": [
+    {
+     "cost": 130,
+     "grade": 1,
+     "desc": "+10 % de dégâts sur les personnes, +15 % de dégâts sur les immeubles, rayon d'éclat +6 %",
+     "effects": {
+      "w2.damage_person": 0.1,
+      "w2.damage_building": 0.15,
+      "w2.splash_radius_m": 0.06,
+      "w2.flash_radius_m": 0.06
+     }
+    },
+    {
+     "cost": 300,
+     "grade": 3,
+     "desc": "+20 % de dégâts sur les personnes, +30 % de dégâts sur les immeubles, rayon d'éclat +12 %",
+     "effects": {
+      "w2.damage_person": 0.2,
+      "w2.damage_building": 0.3,
+      "w2.splash_radius_m": 0.12,
+      "w2.flash_radius_m": 0.12
+     }
+    },
+    {
+     "cost": 580,
+     "grade": 5,
+     "desc": "+30 % de dégâts sur les personnes, +45 % de dégâts sur les immeubles, rayon d'éclat +18 %",
+     "effects": {
+      "w2.damage_person": 0.3,
+      "w2.damage_building": 0.45,
+      "w2.splash_radius_m": 0.18,
+      "w2.flash_radius_m": 0.18
+     }
+    }
+   ]
+  },
+  {
+   "id": "m102_rate",
+   "cat": "weapon_2",
+   "name": "Culasse rapide",
+   "text": "Rechargement de l'obusier plus rapide.",
+   "levels": [
+    {
+     "cost": 150,
+     "grade": 1,
+     "desc": "+10 % de cadence",
+     "effects": {
+      "w2.rpm": 0.1
+     }
+    },
+    {
+     "cost": 320,
+     "grade": 3,
+     "desc": "+20 % de cadence",
+     "effects": {
+      "w2.rpm": 0.2
+     }
+    },
+    {
+     "cost": 620,
+     "grade": 5,
+     "desc": "+30 % de cadence",
+     "effects": {
+      "w2.rpm": 0.3
+     }
+    }
+   ]
+  },
+  {
+   "id": "sen_predict",
+   "cat": "sensor",
+   "name": "Prédicteur de tir",
+   "text": "Un marqueur indique où sera la grappe d'infectés la plus proche du réticule quand l'obus arrivera (temps de vol de l'arme).",
+   "levels": [
+    {
+     "cost": 150,
+     "grade": 1,
+     "desc": "marqueur d'anticipation de la grappe, pour les trois armes",
+     "effects": {
+      "mod.predict": 1
+     }
+    },
+    {
+     "cost": 350,
+     "grade": 3,
+     "desc": "et estimation du nombre d'infectés que le tir en cours toucherait à l'arrivée",
+     "effects": {
+      "mod.predict": 2
+     }
+    },
+    {
+     "cost": 700,
+     "grade": 5,
+     "desc": "et alerte sur les civils qui seraient touchés (bavure évitée)",
+     "effects": {
+      "mod.predict": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "sen_zoom",
+   "cat": "sensor",
+   "name": "Optique à fort grossissement",
+   "text": "Zoom maximal plus élevé (de ×8 à ×16).",
+   "levels": [
+    {
+     "cost": 120,
+     "grade": 0,
+     "desc": "zoom maximal ×10",
+     "effects": {
+      "mod.zoom_max": 10.0
+     }
+    },
+    {
+     "cost": 300,
+     "grade": 2,
+     "desc": "zoom maximal ×12",
+     "effects": {
+      "mod.zoom_max": 12.0
+     }
+    },
+    {
+     "cost": 600,
+     "grade": 4,
+     "desc": "zoom maximal ×16",
+     "effects": {
+      "mod.zoom_max": 16.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "sen_laser",
+   "cat": "sensor",
+   "name": "Désignateur laser",
+   "text": "Clic droit : désigne l'infecté le plus proche du réticule ; la nacelle le suit tant que vous ne la détournez pas.",
+   "levels": [
+    {
+     "cost": 200,
+     "grade": 2,
+     "desc": "désignation dans un rayon de 30 m",
+     "effects": {
+      "mod.laser": 1
+     }
+    },
+    {
+     "cost": 450,
+     "grade": 4,
+     "desc": "rayon de 60 m, nouvelle cible désignée automatiquement, visée avancée sur la cible",
+     "effects": {
+      "mod.laser": 2
+     }
+    },
+    {
+     "cost": 800,
+     "grade": 6,
+     "desc": "rayon de 100 m, dispersion des obus lourds réduite de moitié sur la cible",
+     "effects": {
+      "mod.laser": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "crew_doors",
+   "cat": "crew",
+   "name": "Génie : portes renforcées",
+   "text": "Les portes des immeubles tiennent plus longtemps face aux infectés.",
+   "levels": [
+    {
+     "cost": 120,
+     "grade": 0,
+     "desc": "portes +10 %",
+     "effects": {
+      "mod.door_hp": 0.1
+     }
+    },
+    {
+     "cost": 300,
+     "grade": 2,
+     "desc": "portes +20 %",
+     "effects": {
+      "mod.door_hp": 0.2
+     }
+    },
+    {
+     "cost": 600,
+     "grade": 4,
+     "desc": "portes +30 %",
+     "effects": {
+      "mod.door_hp": 0.3
+     }
+    }
+   ]
+  },
+  {
+   "id": "crew_evac",
+   "cat": "crew",
+   "name": "Guide d'évacuation",
+   "text": "Les civils en fuite courent plus vite vers les points d'évacuation.",
+   "levels": [
+    {
+     "cost": 120,
+     "grade": 0,
+     "desc": "civils +8 % de vitesse",
+     "effects": {
+      "mod.civ_speed": 0.08
+     }
+    },
+    {
+     "cost": 300,
+     "grade": 2,
+     "desc": "civils +16 % de vitesse",
+     "effects": {
+      "mod.civ_speed": 0.16
+     }
+    },
+    {
+     "cost": 600,
+     "grade": 4,
+     "desc": "civils +24 % de vitesse",
+     "effects": {
+      "mod.civ_speed": 0.24
+     }
+    }
+   ]
+  },
+  {
+   "id": "crew_obj",
+   "cat": "crew",
+   "name": "Officier de renseignement",
+   "text": "Les délais des objectifs secondaires sont prolongés.",
+   "levels": [
+    {
+     "cost": 120,
+     "grade": 0,
+     "desc": "+10 s par objectif",
+     "effects": {
+      "mod.obj_time_s": 10.0
+     }
+    },
+    {
+     "cost": 300,
+     "grade": 2,
+     "desc": "+20 s par objectif",
+     "effects": {
+      "mod.obj_time_s": 20.0
+     }
+    },
+    {
+     "cost": 600,
+     "grade": 4,
+     "desc": "+30 s par objectif",
+     "effects": {
+      "mod.obj_time_s": 30.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "crew_chain",
+   "cat": "crew",
+   "name": "Instructeur de tir",
+   "text": "Après une bavure, la série n'est pas perdue en entier.",
+   "levels": [
+    {
+     "cost": 150,
+     "grade": 1,
+     "desc": "on garde 25 % de la série",
+     "effects": {
+      "mod.chain_keep": 0.25
+     }
+    },
+    {
+     "cost": 350,
+     "grade": 3,
+     "desc": "on garde 50 % de la série",
+     "effects": {
+      "mod.chain_keep": 0.5
+     }
+    },
+    {
+     "cost": 650,
+     "grade": 5,
+     "desc": "on garde 75 % de la série",
+     "effects": {
+      "mod.chain_keep": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "id": "crew_regen",
+   "cat": "crew",
+   "name": "Soutier",
+   "text": "Toutes les armes se réapprovisionnent plus vite.",
+   "levels": [
+    {
+     "cost": 120,
+     "grade": 0,
+     "desc": "régénération +20 %",
+     "effects": {
+      "w*.regen_per_s": 0.2
+     }
+    },
+    {
+     "cost": 300,
+     "grade": 2,
+     "desc": "régénération +40 %",
+     "effects": {
+      "w*.regen_per_s": 0.4
+     }
+    },
+    {
+     "cost": 600,
+     "grade": 4,
+     "desc": "régénération +60 %",
+     "effects": {
+      "w*.regen_per_s": 0.6
+     }
+    }
+   ]
+  },
+  {
+   "id": "crew_xp",
+   "cat": "crew",
+   "name": "Mentor",
+   "text": "Expérience gagnée en fin de mission augmentée.",
+   "levels": [
+    {
+     "cost": 200,
+     "grade": 1,
+     "desc": "+5 % d'XP",
+     "effects": {
+      "mod.xp_bonus": 0.05
+     }
+    },
+    {
+     "cost": 450,
+     "grade": 3,
+     "desc": "+10 % d'XP",
+     "effects": {
+      "mod.xp_bonus": 0.1
+     }
+    },
+    {
+     "cost": 800,
+     "grade": 5,
+     "desc": "+15 % d'XP",
+     "effects": {
+      "mod.xp_bonus": 0.15
+     }
+    }
+   ]
+  },
+  {
+   "id": "crew_credit",
+   "cat": "crew",
+   "name": "Intendant",
+   "text": "Crédits d'appui gagnés en fin de mission augmentés.",
+   "levels": [
+    {
+     "cost": 200,
+     "grade": 1,
+     "desc": "+5 % de crédits",
+     "effects": {
+      "mod.credit_bonus": 0.05
+     }
+    },
+    {
+     "cost": 450,
+     "grade": 3,
+     "desc": "+10 % de crédits",
+     "effects": {
+      "mod.credit_bonus": 0.1
+     }
+    },
+    {
+     "cost": 800,
+     "grade": 5,
+     "desc": "+15 % de crédits",
+     "effects": {
+      "mod.credit_bonus": 0.15
+     }
+    }
+   ]
+  },
+  {
+   "id": "sup_barrage",
+   "cat": "support",
+   "name": "Barrage d'obusiers (touche 4)",
+   "text": "Une salve de 105 mm tombe sur le point visé, 6 s après l'appel. Gare aux immeubles habités.",
+   "levels": [
+    {
+     "cost": 250,
+     "grade": 2,
+     "desc": "1 appel, 5 obus sur 48 m, recharge 75 s",
+     "effects": {
+      "mod.sup_barrage": 1
+     }
+    },
+    {
+     "cost": 550,
+     "grade": 4,
+     "desc": "2 appels, 7 obus sur 54 m, recharge 60 s",
+     "effects": {
+      "mod.sup_barrage": 2
+     }
+    },
+    {
+     "cost": 950,
+     "grade": 6,
+     "desc": "3 appels, 9 obus sur 60 m, recharge 45 s",
+     "effects": {
+      "mod.sup_barrage": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "sup_drone",
+   "cat": "support",
+   "name": "Drone de reconnaissance (touche 5)",
+   "text": "Cerne les infectés d'une zone et montre l'immeuble que chacun vise.",
+   "levels": [
+    {
+     "cost": 200,
+     "grade": 1,
+     "desc": "1 appel, 25 s, rayon 350 m, recharge 60 s",
+     "effects": {
+      "mod.sup_drone": 1
+     }
+    },
+    {
+     "cost": 450,
+     "grade": 3,
+     "desc": "2 appels, 35 s, rayon 450 m, recharge 50 s",
+     "effects": {
+      "mod.sup_drone": 2
+     }
+    },
+    {
+     "cost": 800,
+     "grade": 5,
+     "desc": "3 appels, 45 s, rayon 550 m, recharge 40 s",
+     "effects": {
+      "mod.sup_drone": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "sup_decoy",
+   "cat": "support",
+   "name": "Leurre sonore (touche 6)",
+   "text": "Un bruit attire les infectés qui errent dans les rues, loin des portes.",
+   "levels": [
+    {
+     "cost": 150,
+     "grade": 1,
+     "desc": "1 appel, 15 s, rayon 260 m, recharge 50 s",
+     "effects": {
+      "mod.sup_decoy": 1
+     }
+    },
+    {
+     "cost": 350,
+     "grade": 3,
+     "desc": "2 appels, 22 s, rayon 340 m, recharge 45 s",
+     "effects": {
+      "mod.sup_decoy": 2
+     }
+    },
+    {
+     "cost": 650,
+     "grade": 5,
+     "desc": "3 appels, 30 s, rayon 420 m, recharge 40 s",
+     "effects": {
+      "mod.sup_decoy": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "sup_drop",
+   "cat": "support",
+   "name": "Largage de munitions (touche 7)",
+   "text": "Les caissons des trois armes sont regarnis 4 s après l'appel.",
+   "levels": [
+    {
+     "cost": 200,
+     "grade": 1,
+     "desc": "1 appel, +50 % de munitions, recharge 90 s",
+     "effects": {
+      "mod.sup_drop": 1
+     }
+    },
+    {
+     "cost": 450,
+     "grade": 3,
+     "desc": "2 appels, +75 % de munitions, recharge 80 s",
+     "effects": {
+      "mod.sup_drop": 2
+     }
+    },
+    {
+     "cost": 800,
+     "grade": 5,
+     "desc": "2 appels, caissons pleins, recharge 70 s",
+     "effects": {
+      "mod.sup_drop": 3
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,379 @@
+{
+ "id": "mission_05",
+ "title": "NUIT 5 — STADE DE FRANCE",
+ "briefing": "Un match a réuni quatre-vingt mille spectateurs avant la quarantaine ; il reste plus de trois cents personnes retranchées dans les quatre tribunes.\nLes infectés convergent sur les portes. Une tribune rasée, c'est de 70 à 100 morts : tenez les portes à coups de 25 et de 40 mm.",
+ "city": {
+  "seed": 1998,
+  "size": 2400,
+  "style": "stade",
+  "file": "stade"
+ },
+ "duration_s": 480,
+ "max_civilians_lost": 85,
+ "collateral_counts_as_lost": true,
+ "orbit": {
+  "radius_m": 900,
+  "altitude_m": 2500,
+  "speed_ms": 80
+ },
+ "zone": {
+  "cx": 0,
+  "cz": 300,
+  "radius_m": 600
+ },
+ "start_zombies": 16,
+ "start_infested_buildings": 0,
+ "waves": [
+  {
+   "t": 20,
+   "type": "streets",
+   "count": 4,
+   "r_min": 125,
+   "r_max": 450
+  },
+  {
+   "t": 55,
+   "type": "streets",
+   "count": 5,
+   "r_min": 150,
+   "r_max": 450
+  },
+  {
+   "t": 75,
+   "type": "assault",
+   "count": 1,
+   "radius": 350,
+   "zombies": 4,
+   "progress": 0.25,
+   "min_occ": 60,
+   "min_aim": 60
+  },
+  {
+   "t": 95,
+   "type": "metro",
+   "count": 6,
+   "r_min": 150,
+   "r_max": 475
+  },
+  {
+   "t": 110,
+   "type": "special",
+   "zt": "colossus",
+   "count": 1,
+   "r_min": 175,
+   "r_max": 450
+  },
+  {
+   "t": 140,
+   "type": "streets",
+   "count": 7,
+   "r_min": 150,
+   "r_max": 475
+  },
+  {
+   "t": 150,
+   "type": "assault",
+   "count": 1,
+   "radius": 350,
+   "zombies": 5,
+   "progress": 0.25,
+   "min_occ": 60,
+   "min_aim": 60
+  },
+  {
+   "t": 190,
+   "type": "metro",
+   "count": 7,
+   "r_min": 150,
+   "r_max": 500
+  },
+  {
+   "t": 235,
+   "type": "streets",
+   "count": 8,
+   "r_min": 150,
+   "r_max": 500
+  },
+  {
+   "t": 240,
+   "type": "assault",
+   "count": 1,
+   "radius": 350,
+   "zombies": 5,
+   "progress": 0.3,
+   "min_occ": 60,
+   "min_aim": 60
+  },
+  {
+   "t": 240,
+   "type": "special",
+   "zt": "screamer",
+   "count": 1,
+   "r_min": 150,
+   "r_max": 450
+  },
+  {
+   "t": 280,
+   "type": "metro",
+   "count": 8,
+   "r_min": 150,
+   "r_max": 500
+  },
+  {
+   "t": 310,
+   "type": "special",
+   "zt": "colossus",
+   "count": 1,
+   "r_min": 175,
+   "r_max": 450
+  },
+  {
+   "t": 330,
+   "type": "assault",
+   "count": 1,
+   "radius": 350,
+   "zombies": 6,
+   "progress": 0.3,
+   "min_occ": 60,
+   "min_aim": 60
+  },
+  {
+   "t": 335,
+   "type": "streets",
+   "count": 9,
+   "r_min": 150,
+   "r_max": 500
+  },
+  {
+   "t": 385,
+   "type": "metro",
+   "count": 9,
+   "r_min": 150,
+   "r_max": 500
+  },
+  {
+   "t": 390,
+   "type": "special",
+   "zt": "alpha",
+   "count": 1,
+   "r_min": 150,
+   "r_max": 450
+  },
+  {
+   "t": 400,
+   "type": "assault",
+   "count": 1,
+   "radius": 350,
+   "zombies": 6,
+   "progress": 0.3,
+   "min_occ": 60,
+   "min_aim": 60
+  },
+  {
+   "t": 435,
+   "type": "streets",
+   "count": 10,
+   "r_min": 150,
+   "r_max": 500
+  }
+ ],
+ "rules": {
+  "zombie_hp": 40,
+  "runner_ratio": 0.2,
+  "seek_ratio": 0.3,
+  "amb_target": 30,
+  "amb_spawn_s": 1.6,
+  "amb_fear_m": 45,
+  "amb_chase_m": 28,
+  "eat_interval_s": 9.0,
+  "flee_interval_s": 4.5,
+  "turn_delay_s": 6.0,
+  "burst_threshold": 4,
+  "burst_interval_s": 2.5,
+  "door_hp_min": 70,
+  "door_hp_max": 130,
+  "door_big_free": 20,
+  "door_big_div": 40
+ },
+ "score_targets": [
+  5000,
+  9000,
+  14000,
+  20000
+ ],
+ "stars": [
+  {
+   "type": "win",
+   "text": "Tenir le secteur"
+  },
+  {
+   "type": "lost_max",
+   "value": 40,
+   "text": "Perdre moins de 40 civils"
+  },
+  {
+   "type": "rating_min",
+   "value": "B",
+   "text": "Obtenir au moins la note B"
+  }
+ ],
+ "primary": {
+  "title": "Protéger les tribunes jusqu'à l'aube",
+  "text": "Moins de 70 civils perdus avant le lever du jour."
+ },
+ "max_active_objectives": 2,
+ "objectives": [
+  {
+   "id": "hold_s1",
+   "kind": "secondary",
+   "type": "hold",
+   "t": 30,
+   "duration": 90,
+   "radius": 350,
+   "min_occ": 60,
+   "min_aim": 60,
+   "zombies": 6,
+   "progress": 0.2,
+   "reinforce": [
+    {
+     "at": 30,
+     "zombies": 4
+    },
+    {
+     "at": 60,
+     "zombies": 5
+    }
+   ],
+   "title": "Tenir la tribune",
+   "text": "Aucun infecté ne doit entrer dans la tribune marquée.",
+   "reward": {
+    "points": 800
+   }
+  },
+  {
+   "id": "hunt_s1",
+   "kind": "secondary",
+   "type": "hunt",
+   "t": 135,
+   "duration": 70,
+   "count": 30,
+   "title": "Dégager les abords",
+   "text": "Neutralisez 30 infectés avant la fin du délai.",
+   "reward": {
+    "points": 700
+   }
+  },
+  {
+   "id": "intercept_s",
+   "kind": "secondary",
+   "type": "intercept",
+   "t": 205,
+   "duration": 90,
+   "count": 24,
+   "allow": 3,
+   "radius": 130,
+   "r_min": 150,
+   "r_max": 400,
+   "title": "Barrer l'avenue",
+   "text": "Détruisez le groupe avant qu'il n'atteigne les tribunes.",
+   "reward": {
+    "points": 750
+   }
+  },
+  {
+   "id": "hold_s2",
+   "kind": "secondary",
+   "type": "hold",
+   "t": 290,
+   "duration": 100,
+   "radius": 350,
+   "min_occ": 60,
+   "min_aim": 60,
+   "zombies": 7,
+   "progress": 0.2,
+   "reinforce": [
+    {
+     "at": 30,
+     "zombies": 5
+    },
+    {
+     "at": 60,
+     "zombies": 5
+    }
+   ],
+   "title": "Sauver la tribune",
+   "text": "Aucun infecté ne doit entrer dans la tribune marquée.",
+   "reward": {
+    "points": 900
+   }
+  },
+  {
+   "id": "hunt_s2",
+   "kind": "secondary",
+   "type": "hunt",
+   "t": 400,
+   "duration": 70,
+   "count": 35,
+   "title": "Dernière battue",
+   "text": "Neutralisez 35 infectés avant la fin du délai.",
+   "reward": {
+    "points": 900
+   }
+  },
+  {
+   "id": "h_burst",
+   "kind": "hidden",
+   "type": "shell_kills",
+   "value": 10,
+   "title": "Tir groupé",
+   "text": "Dix infectés neutralisés par un seul obus.",
+   "reward": {
+    "points": 400
+   }
+  },
+  {
+   "id": "h_long",
+   "kind": "hidden",
+   "type": "long_shot",
+   "value": 3000,
+   "title": "Tir de précision",
+   "text": "Une élimination à plus de 3 000 m.",
+   "reward": {
+    "points": 400
+   }
+  },
+  {
+   "id": "h_chain",
+   "kind": "hidden",
+   "type": "chain",
+   "value": 70,
+   "title": "Série infernale",
+   "text": "Soixante-dix éliminations d'affilée sans bavure.",
+   "reward": {
+    "points": 500
+   }
+  },
+  {
+   "id": "h_clean",
+   "kind": "hidden",
+   "type": "clean_run",
+   "value": 150,
+   "title": "Sans bavure",
+   "text": "Cent cinquante secondes sans victime collatérale.",
+   "reward": {
+    "points": 400
+   }
+  },
+  {
+   "id": "h_sharp",
+   "kind": "hidden",
+   "type": "sharp",
+   "value": 6,
+   "title": "Obus au but",
+   "text": "Six obus lourds de suite qui touchent un infecté.",
+   "reward": {
+    "points": 300
+   }
+  }
+ ]
+}

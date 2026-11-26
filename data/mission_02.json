@@ -1,0 +1,369 @@
+{
+ "id": "mission_02",
+ "title": "NUIT 2 — MONTMARTRE",
+ "briefing": "Les infectés se glissent dans les ruelles de la Butte. Les immeubles y sont si serrés qu'un obus lourd en emporte trois d'un coup, avec leurs habitants.\nTirez entre les murs, gardez le 105 mm pour les places, et ne laissez personne s'attarder devant une porte.",
+ "city": {
+  "seed": 1871,
+  "size": 2400,
+  "style": "montmartre",
+  "file": "montmartre"
+ },
+ "duration_s": 420,
+ "max_civilians_lost": 52,
+ "collateral_counts_as_lost": true,
+ "orbit": {
+  "radius_m": 800,
+  "altitude_m": 2600,
+  "speed_ms": 78
+ },
+ "zone": {
+  "cx": 0,
+  "cz": 0,
+  "radius_m": 600
+ },
+ "start_zombies": 12,
+ "start_infested_buildings": 0,
+ "waves": [
+  {
+   "t": 18,
+   "type": "streets",
+   "count": 5,
+   "r_min": 100,
+   "r_max": 350
+  },
+  {
+   "t": 35,
+   "type": "assault",
+   "count": 1,
+   "radius": 325,
+   "zombies": 4,
+   "progress": 0.2
+  },
+  {
+   "t": 50,
+   "type": "metro",
+   "count": 5,
+   "r_min": 100,
+   "r_max": 375
+  },
+  {
+   "t": 75,
+   "type": "assault",
+   "count": 1,
+   "radius": 350,
+   "zombies": 4,
+   "progress": 0.2
+  },
+  {
+   "t": 88,
+   "type": "streets",
+   "count": 6,
+   "r_min": 125,
+   "r_max": 400
+  },
+  {
+   "t": 110,
+   "type": "assault",
+   "count": 1,
+   "radius": 350,
+   "zombies": 4,
+   "progress": 0.25
+  },
+  {
+   "t": 120,
+   "type": "breach",
+   "count": 1,
+   "radius": 350
+  },
+  {
+   "t": 135,
+   "type": "metro",
+   "count": 6,
+   "r_min": 125,
+   "r_max": 400
+  },
+  {
+   "t": 150,
+   "type": "special",
+   "zt": "screamer",
+   "count": 1,
+   "r_min": 150,
+   "r_max": 400
+  },
+  {
+   "t": 160,
+   "type": "assault",
+   "count": 1,
+   "radius": 375,
+   "zombies": 4,
+   "progress": 0.25
+  },
+  {
+   "t": 175,
+   "type": "streets",
+   "count": 7,
+   "r_min": 125,
+   "r_max": 425
+  },
+  {
+   "t": 200,
+   "type": "assault",
+   "count": 1,
+   "radius": 375,
+   "zombies": 4,
+   "progress": 0.25
+  },
+  {
+   "t": 225,
+   "type": "metro",
+   "count": 7,
+   "r_min": 125,
+   "r_max": 425
+  },
+  {
+   "t": 245,
+   "type": "assault",
+   "count": 1,
+   "radius": 400,
+   "zombies": 4,
+   "progress": 0.25
+  },
+  {
+   "t": 255,
+   "type": "breach",
+   "count": 1,
+   "radius": 375
+  },
+  {
+   "t": 270,
+   "type": "streets",
+   "count": 8,
+   "r_min": 150,
+   "r_max": 425
+  },
+  {
+   "t": 290,
+   "type": "assault",
+   "count": 1,
+   "radius": 400,
+   "zombies": 4,
+   "progress": 0.3
+  },
+  {
+   "t": 300,
+   "type": "special",
+   "zt": "screamer",
+   "count": 1,
+   "r_min": 150,
+   "r_max": 400
+  },
+  {
+   "t": 320,
+   "type": "metro",
+   "count": 8,
+   "r_min": 150,
+   "r_max": 425
+  },
+  {
+   "t": 335,
+   "type": "assault",
+   "count": 1,
+   "radius": 400,
+   "zombies": 4,
+   "progress": 0.3
+  },
+  {
+   "t": 365,
+   "type": "streets",
+   "count": 9,
+   "r_min": 150,
+   "r_max": 425
+  }
+ ],
+ "rules": {
+  "zombie_hp": 40,
+  "runner_ratio": 0.2,
+  "seek_ratio": 0.3,
+  "amb_target": 40,
+  "amb_spawn_s": 1.6,
+  "amb_fear_m": 45,
+  "amb_chase_m": 28,
+  "eat_interval_s": 9.0,
+  "flee_interval_s": 4.5,
+  "turn_delay_s": 6.0,
+  "burst_threshold": 4,
+  "burst_interval_s": 2.5,
+  "door_hp_min": 60,
+  "door_hp_max": 110
+ },
+ "score_targets": [
+  3000,
+  5500,
+  8500,
+  12000
+ ],
+ "stars": [
+  {
+   "type": "win",
+   "text": "Tenir le secteur"
+  },
+  {
+   "type": "collateral_max",
+   "value": 8,
+   "text": "Faire au plus 8 victimes collatérales"
+  },
+  {
+   "type": "objectives_min",
+   "value": 3,
+   "text": "Réussir 3 objectifs secondaires sur 5"
+  }
+ ],
+ "primary": {
+  "title": "Tenir la Butte jusqu'à l'aube",
+  "text": "Moins de 50 civils perdus avant le lever du jour."
+ },
+ "max_active_objectives": 2,
+ "objectives": [
+  {
+   "id": "evac_2",
+   "kind": "secondary",
+   "type": "evac",
+   "t": 40,
+   "duration": 110,
+   "count": 3,
+   "min_occ": 5,
+   "zombies": 1,
+   "radius": 350,
+   "max_evac": 320,
+   "title": "Évacuer la ruelle",
+   "text": "Un immeuble est infiltré : sauvez 3 civils avant la fin du délai.",
+   "reward": {
+    "points": 500
+   }
+  },
+  {
+   "id": "hold_2",
+   "kind": "secondary",
+   "type": "hold",
+   "t": 120,
+   "duration": 70,
+   "radius": 350,
+   "min_occ": 5,
+   "zombies": 4,
+   "progress": 0.15,
+   "reinforce": [
+    {
+     "at": 25,
+     "zombies": 3
+    },
+    {
+     "at": 50,
+     "zombies": 3
+    }
+   ],
+   "title": "Tenir la maison",
+   "text": "Aucun infecté ne doit entrer dans l'immeuble marqué.",
+   "reward": {
+    "points": 600
+   }
+  },
+  {
+   "id": "hunt_3",
+   "kind": "secondary",
+   "type": "hunt",
+   "t": 185,
+   "duration": 60,
+   "count": 20,
+   "title": "Battue dans les ruelles",
+   "text": "Neutralisez 20 infectés avant la fin du délai.",
+   "reward": {
+    "points": 500
+   }
+  },
+  {
+   "id": "intercept_2",
+   "kind": "secondary",
+   "type": "intercept",
+   "t": 250,
+   "duration": 90,
+   "count": 14,
+   "allow": 2,
+   "radius": 100,
+   "r_min": 150,
+   "r_max": 400,
+   "title": "Barrer la rue",
+   "text": "Détruisez le groupe avant qu'il n'atteigne les immeubles.",
+   "reward": {
+    "points": 600
+   }
+  },
+  {
+   "id": "hunt_4",
+   "kind": "secondary",
+   "type": "hunt",
+   "t": 335,
+   "duration": 70,
+   "count": 25,
+   "title": "Dernière battue",
+   "text": "Neutralisez 25 infectés avant la fin du délai.",
+   "reward": {
+    "points": 700
+   }
+  },
+  {
+   "id": "h_burst",
+   "kind": "hidden",
+   "type": "shell_kills",
+   "value": 6,
+   "title": "Tir groupé",
+   "text": "Six infectés neutralisés par un seul obus.",
+   "reward": {
+    "points": 400
+   }
+  },
+  {
+   "id": "h_long",
+   "kind": "hidden",
+   "type": "long_shot",
+   "value": 3000,
+   "title": "Tir de précision",
+   "text": "Une élimination à plus de 3 000 m.",
+   "reward": {
+    "points": 400
+   }
+  },
+  {
+   "id": "h_chain",
+   "kind": "hidden",
+   "type": "chain",
+   "value": 50,
+   "title": "Série infernale",
+   "text": "Cinquante éliminations d'affilée sans bavure.",
+   "reward": {
+    "points": 500
+   }
+  },
+  {
+   "id": "h_clean",
+   "kind": "hidden",
+   "type": "clean_run",
+   "value": 140,
+   "title": "Sans bavure",
+   "text": "Cent quarante secondes sans victime collatérale.",
+   "reward": {
+    "points": 400
+   }
+  },
+  {
+   "id": "h_sharp",
+   "kind": "hidden",
+   "type": "sharp",
+   "value": 5,
+   "title": "Obus au but",
+   "text": "Cinq obus lourds de suite qui touchent un infecté.",
+   "reward": {
+    "points": 300
+   }
+  }
+ ]
+}

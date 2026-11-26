@@ -1,0 +1,43 @@
+{
+ "_commentaire": "Appuis ponctuels, appelés à la radio avec les touches 4 à 7. Chacun s'achète à l'atelier (rubrique APPUIS, identifiant d'amélioration dans « upgrade ») et a trois niveaux. charges : nombre d'appels par mission ; cooldown_s : délai entre deux appels. Barrage : shells obus de 105 mm tombent au hasard dans un cercle de radius_m autour du point visé à l'appel, de delay_s à delay_s + spread_s secondes plus tard. Drone : pendant duration_s, les infectés à moins de radius_m du point visé sont cerclés, avec l'immeuble qu'ils visent. Leurre : pendant duration_s, les infectés à moins de radius_m qui ne sont pas à une porte convergent vers le point visé. Largage : delay_s plus tard, chaque arme retrouve la part refill de sa capacité. Il n'y a pas de fusée éclairante : l'imagerie thermique n'en tire aucun profit.",
+ "supports": [
+  {
+   "id": "barrage", "name": "Barrage", "short": "BARRAGE", "key": 4, "upgrade": "sup_barrage",
+   "text": "Une salve d'obusiers de 105 mm sur le point visé.",
+   "delay_s": 6.0, "spread_s": 3.5,
+   "levels": [
+    {"charges": 1, "cooldown_s": 75, "shells": 5, "radius_m": 48},
+    {"charges": 2, "cooldown_s": 60, "shells": 7, "radius_m": 54},
+    {"charges": 3, "cooldown_s": 45, "shells": 9, "radius_m": 60}
+   ]
+  },
+  {
+   "id": "drone", "name": "Drone de reconnaissance", "short": "DRONE", "key": 5, "upgrade": "sup_drone",
+   "text": "Un drone cerne les infectés d'une zone et montre les immeubles qu'ils visent.",
+   "levels": [
+    {"charges": 1, "cooldown_s": 60, "duration_s": 25, "radius_m": 350},
+    {"charges": 2, "cooldown_s": 50, "duration_s": 35, "radius_m": 450},
+    {"charges": 3, "cooldown_s": 40, "duration_s": 45, "radius_m": 550}
+   ]
+  },
+  {
+   "id": "decoy", "name": "Leurre sonore", "short": "LEURRE", "key": 6, "upgrade": "sup_decoy",
+   "text": "Un bruit attire les infectés qui errent dans les rues, loin des portes.",
+   "levels": [
+    {"charges": 1, "cooldown_s": 50, "duration_s": 15, "radius_m": 260},
+    {"charges": 2, "cooldown_s": 45, "duration_s": 22, "radius_m": 340},
+    {"charges": 3, "cooldown_s": 40, "duration_s": 30, "radius_m": 420}
+   ]
+  },
+  {
+   "id": "drop", "name": "Largage de munitions", "short": "LARGAGE", "key": 7, "upgrade": "sup_drop",
+   "text": "Les caissons de munitions des trois armes sont regarnis.",
+   "delay_s": 4.0,
+   "levels": [
+    {"charges": 1, "cooldown_s": 90, "refill": 0.5},
+    {"charges": 2, "cooldown_s": 80, "refill": 0.75},
+    {"charges": 2, "cooldown_s": 70, "refill": 1.0}
+   ]
+  }
+ ]
+}

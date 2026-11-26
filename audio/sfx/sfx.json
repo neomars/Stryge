@@ -1,0 +1,137 @@
+{
+ "bofors_1": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 81585
+ },
+ "bofors_2": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 81585
+ },
+ "bofors_3": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 81585
+ },
+ "bofors_clack": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 9702
+ },
+ "dry_click": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 5292
+ },
+ "engine_loop": {
+  "gain_db": 0.0,
+  "loop_begin": 0,
+  "loop_end": 176400,
+  "rate": 22050,
+  "samples": 176400
+ },
+ "gau_burst": {
+  "gain_db": 0.0,
+  "loop_begin": 19696,
+  "loop_end": 63796,
+  "rate": 44100,
+  "samples": 63796
+ },
+ "gau_tail": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 33075
+ },
+ "m102_1": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 149940
+ },
+ "m102_2": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 149940
+ },
+ "m102_eject": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 39690
+ },
+ "m102_latch": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 26460
+ },
+ "m102_load": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 39690
+ },
+ "ptt_avion_off": {
+  "gain_db": 0.0,
+  "rate": 8000,
+  "samples": 960
+ },
+ "ptt_avion_on": {
+  "gain_db": 0.0,
+  "rate": 8000,
+  "samples": 400
+ },
+ "ptt_base_off": {
+  "gain_db": 0.0,
+  "rate": 8000,
+  "samples": 2880
+ },
+ "ptt_base_on": {
+  "gain_db": 0.0,
+  "rate": 8000,
+  "samples": 720
+ },
+ "ptt_tireur_off": {
+  "gain_db": 0.0,
+  "rate": 8000,
+  "samples": 960
+ },
+ "ptt_tireur_on": {
+  "gain_db": 0.0,
+  "rate": 8000,
+  "samples": 400
+ },
+ "selector_1": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 24255
+ },
+ "selector_2": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 24255
+ },
+ "selector_3": {
+  "gain_db": 0.0,
+  "rate": 44100,
+  "samples": 24255
+ },
+ "static_avion": {
+  "gain_db": 0.0,
+  "loop_begin": 0,
+  "loop_end": 32000,
+  "rate": 8000,
+  "samples": 32000
+ },
+ "static_base": {
+  "gain_db": 0.0,
+  "loop_begin": 0,
+  "loop_end": 32000,
+  "rate": 8000,
+  "samples": 32000
+ },
+ "static_tireur": {
+  "gain_db": 0.0,
+  "loop_begin": 0,
+  "loop_end": 32000,
+  "rate": 8000,
+  "samples": 32000
+ }
+}

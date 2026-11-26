@@ -1,0 +1,33 @@
+{
+  "_commentaire": "Barème du score. Les éliminations rapportent chacune points × multiplicateur de série ; une bavure (civil tué par vos tirs, ou enseveli sous un immeuble qui tenait encore) rompt la série ; un immeuble déjà perdu (conseil RASER : OUI) rasé ne coûte que le prix d'un civil dévoré (civ_eaten), sans bavure. chain_tiers : [série minimale, multiplicateur].",
+  "points": {
+    "zombie": 10,
+    "runner": 14,
+    "inside_building": 6,
+    "civ_saved": 120,
+    "civ_eaten": -40,
+    "civ_collateral": -150,
+    "protected_civ": 8,
+    "lost_margin": 20,
+    "time_left_per_s": 2
+  },
+  "chain_tiers": [
+    [
+      0,
+      1
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      15,
+      3
+    ],
+    [
+      30,
+      4
+    ]
+  ],
+  "feed_s": 4.0
+}

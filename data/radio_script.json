@@ -1,0 +1,2098 @@
+{
+  "_commentaire": "Script radio de Stryge. Lu par le jeu (scripts/core/radio.gd) ET par tools/audio/make_voices.py qui synthétise la banque de voix. Un atome = une phrase courte, synthétisée une seule fois. « voix|texte affiché » : la voix dit le premier, le journal radio affiche le second. Un atome « {nom} » est une valeur tirée de « slots ». Après modification du texte, relancer : python3 tools/audio/make_voices.py",
+  "gap_s": 0.1,
+  "reply_gap_s": [
+    0.22,
+    0.4
+  ],
+  "speakers": {
+    "base": {
+      "label": "LUTÈCE",
+      "kind": "base",
+      "voice": "siwis",
+      "pitch_st": -1.0,
+      "rate": 1.1
+    },
+    "avion": {
+      "label": "NOCTURNE 2-1",
+      "kind": "info",
+      "voice": "gilles",
+      "pitch_st": 0.0,
+      "rate": 1.12
+    },
+    "tireur": {
+      "label": "TIREUR",
+      "kind": "info",
+      "voice": "gilles",
+      "pitch_st": -3.8,
+      "rate": 1.06
+    }
+  },
+  "slots": {
+    "dir": {
+      "values": [
+        "au nord",
+        "au nord-est",
+        "à l'est",
+        "au sud-est",
+        "au sud",
+        "au sud-ouest",
+        "à l'ouest",
+        "au nord-ouest"
+      ],
+      "tts": "{v} de votre visée.",
+      "text": "{v} de votre visée"
+    },
+    "dist": {
+      "range": [
+        100,
+        2500,
+        100
+      ],
+      "tts": "à {w} mètres.",
+      "text": "à {v} m"
+    },
+    "n": {
+      "range": [
+        1,
+        24,
+        1
+      ],
+      "tts": "{w} environ.",
+      "text": "{v} environ",
+      "one": {
+        "tts": "un seul infecté.",
+        "text": "1 infecté"
+      }
+    },
+    "civ": {
+      "range": [
+        1,
+        24,
+        1
+      ],
+      "tts": "{w} civils sous les décombres.",
+      "text": "{v} civils sous les décombres",
+      "one": {
+        "tts": "un civil sous les décombres.",
+        "text": "1 civil sous les décombres"
+      }
+    },
+    "secs": {
+      "range": [
+        30,
+        180,
+        10
+      ],
+      "tts": "{w} secondes.",
+      "text": "{v} s"
+    },
+    "hold": {
+      "range": [
+        30,
+        180,
+        10
+      ],
+      "tts": "Tenez {w} secondes.",
+      "text": "tenir {v} s"
+    },
+    "civs": {
+      "range": [
+        2,
+        12,
+        1
+      ],
+      "tts": "Sauvez {w} civils.",
+      "text": "sauver {v} civils"
+    },
+    "hunt_n": {
+      "range": [
+        10,
+        40,
+        5
+      ],
+      "tts": "Neutralisez {w} infectés.",
+      "text": "neutraliser {v} infectés"
+    },
+    "grp_n": {
+      "range": [
+        8,
+        30,
+        2
+      ],
+      "tts": "Groupe de {w} infectés.",
+      "text": "groupe de {v} infectés"
+    },
+    "wave": {
+      "range": [
+        2,
+        60,
+        1
+      ],
+      "tts": "Vague {w}.",
+      "text": "vague {v}"
+    }
+  },
+  "events": {
+    "start": {
+      "priority": 9,
+      "wait_s": 40,
+      "cooldown_s": 0,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne deux un, ici Lutèce.|Nocturne 2-1, ici Lutèce.",
+              "Vous êtes sur zone.",
+              "Appui feu autorisé."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Lutèce, ici Nocturne deux un.|Lutèce, ici Nocturne 2-1.",
+              "Nous sommes en orbite."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Tireur, armement actif.",
+              "Évitez les immeubles habités."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu.",
+              "J'ai la visée."
+            ]
+          }
+        ]
+      ]
+    },
+    "new_group": {
+      "priority": 6,
+      "wait_s": 18,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Nouveau groupe d'infectés.",
+              "{n}",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu Lutèce.",
+              "Tireur, objectif.",
+              "{dir}"
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Objectif en vue."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Mouvement d'infectés dans les rues.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, contact dans les rues."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Visuel.",
+              "J'engage."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Contact multiple.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Copié.",
+              "Tireur, à vous."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je les ai.",
+              "Je commence."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne.",
+              "Nouveaux infectés.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu.",
+              "Objectif repéré."
+            ]
+          }
+        ]
+      ]
+    },
+    "new_group_metro": {
+      "priority": 6,
+      "wait_s": 18,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Des infectés remontent du métro.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, sortie de métro."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je les vois sortir."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Alerte.",
+              "Sortie de métro infestée.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Copié.",
+              "Tireur, à vous."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Visuel.",
+              "J'engage."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Un groupe émerge du métro.",
+              "{n}",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, objectif."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris."
+            ]
+          }
+        ]
+      ]
+    },
+    "assault": {
+      "priority": 7,
+      "wait_s": 14,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Assaut sur un immeuble habité.",
+              "{dir}",
+              "{dist}",
+              "Des civils sont barricadés."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, abattez les infectés devant la porte."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je vois la porte.",
+              "J'engage."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Alerte.",
+              "Infectés devant la porte d'un immeuble.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Compris.",
+              "Tireur, priorité absolue."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu."
+            ]
+          }
+        ]
+      ]
+    },
+    "breach": {
+      "priority": 7,
+      "wait_s": 14,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Intrusion dans un immeuble.",
+              "{dir}",
+              "{dist}",
+              "Des civils sont piégés."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, à vous de décider."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Alerte.",
+              "Infectés entrés dans un immeuble.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Copié.",
+              "Tireur, civils en danger."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je m'en occupe."
+            ]
+          }
+        ]
+      ]
+    },
+    "door_forced": {
+      "priority": 8,
+      "wait_s": 8,
+      "cooldown_s": 14,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Porte forcée !",
+              "Infectés dans un immeuble.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Tireur, intrusion confirmée."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je vois."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Une porte a cédé.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, immeuble envahi."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris."
+            ]
+          }
+        ]
+      ]
+    },
+    "collateral": {
+      "priority": 7,
+      "wait_s": 6,
+      "cooldown_s": 18,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Civils touchés par vos tirs !",
+              "Identifiez vos cibles."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu Lutèce.",
+              "Tireur, attention à vos tirs."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Désolé.",
+              "Je corrige."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Attention !",
+              "Des civils sont touchés.",
+              "Cessez les tirs imprudents."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris."
+            ]
+          }
+        ]
+      ]
+    },
+    "saved": {
+      "priority": 2,
+      "wait_s": 10,
+      "cooldown_s": 30,
+      "good": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Des civils ont rejoint un point d'évacuation."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Bien reçu."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Évacuation confirmée.",
+              "Des civils sont en sécurité."
+            ]
+          }
+        ]
+      ]
+    },
+    "kills": {
+      "priority": 1,
+      "wait_s": 5,
+      "cooldown_s": 25,
+      "variants": [
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Cibles neutralisées."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Bien reçu.",
+              "Continuez."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Objectifs détruits."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Confirmé.",
+              "Bon tir."
+            ]
+          }
+        ]
+      ]
+    },
+    "building_lost": {
+      "priority": 6,
+      "wait_s": 10,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Immeuble détruit."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Reçu.",
+              "{civ}",
+              "Soyez plus prudents."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Immeuble détruit."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "{civ}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Compris."
+            ]
+          }
+        ]
+      ]
+    },
+    "building_contained": {
+      "priority": 4,
+      "wait_s": 10,
+      "cooldown_s": 0,
+      "variants": [
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Immeuble rasé."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Contagion arrêtée."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Bien reçu."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Immeuble détruit.",
+              "Il était perdu."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Compris.",
+              "Contagion arrêtée."
+            ]
+          }
+        ]
+      ]
+    },
+    "building_clear": {
+      "priority": 3,
+      "wait_s": 10,
+      "cooldown_s": 0,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Immeuble détruit.",
+              "Infectés neutralisés."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Bien reçu.",
+              "Zone dégagée."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Immeuble rasé.",
+              "Plus de contact."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Bien reçu."
+            ]
+          }
+        ]
+      ]
+    },
+    "warn_half": {
+      "priority": 8,
+      "wait_s": 20,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Pertes civiles à la moitié du seuil toléré.",
+              "Tenez les rues."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Compris.",
+              "Tireur, concentrez-vous sur les rues."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu."
+            ]
+          }
+        ]
+      ]
+    },
+    "warn_critical": {
+      "priority": 9,
+      "wait_s": 20,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Alerte.",
+              "Seuil critique atteint.",
+              "Une perte de plus et le secteur tombe."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, plus aucune erreur."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris."
+            ]
+          }
+        ]
+      ]
+    },
+    "recenter": {
+      "priority": 1,
+      "wait_s": 3,
+      "cooldown_s": 6,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Recentrage de l'orbite sur la zone visée."
+            ]
+          }
+        ]
+      ]
+    },
+    "end_dawn": {
+      "priority": 10,
+      "wait_s": 60,
+      "cooldown_s": 0,
+      "good": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne deux un, ici Lutèce.|Nocturne 2-1, ici Lutèce.",
+              "L'aube se lève.",
+              "L'évacuation du secteur est terminée.",
+              "Bon travail."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Lutèce, reçu.",
+              "Nous rompons l'orbite."
+            ]
+          }
+        ]
+      ]
+    },
+    "end_clear": {
+      "priority": 10,
+      "wait_s": 60,
+      "cooldown_s": 0,
+      "good": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne deux un, ici Lutèce.|Nocturne 2-1, ici Lutèce.",
+              "Plus aucun infecté détecté.",
+              "Secteur sécurisé.",
+              "Bon travail."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu Lutèce.",
+              "Fin de mission."
+            ]
+          }
+        ]
+      ]
+    },
+    "end_lost": {
+      "priority": 10,
+      "wait_s": 60,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne deux un, ici Lutèce.|Nocturne 2-1, ici Lutèce.",
+              "Trop de civils perdus.",
+              "Le secteur est tombé.",
+              "Rompez l'orbite."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Nous rentrons."
+            ]
+          }
+        ]
+      ]
+    },
+    "obj_hold": {
+      "priority": 8,
+      "wait_s": 25,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Objectif prioritaire.",
+              "Protégez l'immeuble.",
+              "{dir}",
+              "{dist}",
+              "{hold}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu Lutèce.",
+              "Tireur, on tient l'immeuble."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris.",
+              "Je le couvre."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Objectif prioritaire.",
+              "Empêchez les infectés d'entrer.",
+              "{dir}",
+              "{dist}",
+              "{hold}"
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu.",
+              "Rien n'entrera."
+            ]
+          }
+        ]
+      ]
+    },
+    "obj_evac": {
+      "priority": 8,
+      "wait_s": 25,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Évacuation à couvrir.",
+              "{dir}",
+              "{dist}",
+              "{civs}",
+              "{secs}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu Lutèce.",
+              "Tireur, couvrez la sortie."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris.",
+              "Je surveille la rue."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Des civils tentent de fuir.",
+              "{dir}",
+              "{dist}",
+              "{civs}",
+              "{secs}"
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu.",
+              "Je dégage la rue."
+            ]
+          }
+        ]
+      ]
+    },
+    "obj_hunt": {
+      "priority": 8,
+      "wait_s": 25,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Objectif secondaire.",
+              "{hunt_n}",
+              "{secs}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, chasse libre."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris.",
+              "J'engage."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Les rues se remplissent.",
+              "{hunt_n}",
+              "{secs}"
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu.",
+              "Je commence."
+            ]
+          }
+        ]
+      ]
+    },
+    "obj_intercept": {
+      "priority": 8,
+      "wait_s": 25,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Objectif prioritaire.",
+              "Interceptez-les avant les immeubles.",
+              "{grp_n}",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu Lutèce.",
+              "Tireur, interception."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je les ai.",
+              "Ils n'iront pas loin."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Objectif prioritaire.",
+              "Arrêtez cette colonne avant les portes.",
+              "{grp_n}",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Copié.",
+              "Tireur, à vous."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Visuel.",
+              "J'engage."
+            ]
+          }
+        ]
+      ]
+    },
+    "obj_done": {
+      "priority": 6,
+      "wait_s": 25,
+      "cooldown_s": 0,
+      "good": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Objectif accompli.",
+              "Bon travail."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu Lutèce."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Objectif atteint.",
+              "Excellent."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Objectif rempli.",
+              "Continuez ainsi."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Compris."
+            ]
+          }
+        ]
+      ]
+    },
+    "obj_failed": {
+      "priority": 7,
+      "wait_s": 20,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Objectif perdu.",
+              "Concentrez-vous sur les rues."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Compris Lutèce."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Objectif échoué.",
+              "Restez sur le secteur."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu."
+            ]
+          }
+        ]
+      ]
+    },
+    "obj_hidden": {
+      "priority": 6,
+      "wait_s": 25,
+      "cooldown_s": 0,
+      "good": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Beau tir.",
+              "Objectif de bonus accompli."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Bien reçu."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Performance remarquable.",
+              "Bonus validé."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Bien reçu."
+            ]
+          }
+        ]
+      ]
+    },
+    "obj_time30": {
+      "priority": 4,
+      "wait_s": 6,
+      "cooldown_s": 6,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Plus que trente secondes."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Trente secondes."
+            ]
+          }
+        ]
+      ]
+    },
+    "obj_time10": {
+      "priority": 4,
+      "wait_s": 5,
+      "cooldown_s": 6,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Dix secondes."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Dix secondes."
+            ]
+          }
+        ]
+      ]
+    },
+    "obj_reinforce": {
+      "priority": 5,
+      "wait_s": 8,
+      "cooldown_s": 10,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Nouveaux infectés sur l'immeuble."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je les vois."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Renforts d'infectés sur l'immeuble."
+            ]
+          }
+        ]
+      ]
+    },
+    "special_colossus": {
+      "priority": 8,
+      "wait_s": 22,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Colosse repéré.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, prenez le cent cinq.|Tireur, prenez le 105."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris.",
+              "Je passe au cent cinq.|Je passe au 105."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Alerte.",
+              "Un colosse avance dans les rues.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Copié.",
+              "Tireur, le vingt-cinq ne suffira pas.|Tireur, le 25 ne suffira pas."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je prends le cent cinq.|Je prends le 105."
+            ]
+          }
+        ]
+      ]
+    },
+    "special_screamer": {
+      "priority": 7,
+      "wait_s": 20,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Hurleur détecté.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, abattez-le avant qu'il ne crie."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je le cherche."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Alerte.",
+              "Un hurleur dans les rues.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Copié.",
+              "Tireur, son cri les rend plus rapides."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Visuel.",
+              "J'engage."
+            ]
+          }
+        ]
+      ]
+    },
+    "special_alpha": {
+      "priority": 8,
+      "wait_s": 20,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne, ici Lutèce.",
+              "Infecté alpha avec sa meute.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, visez le chef de meute."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris.",
+              "Je cherche l'alpha."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Alerte.",
+              "Une meute suit un alpha.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Copié.",
+              "Tireur, la meute court tant qu'il vit."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu."
+            ]
+          }
+        ]
+      ]
+    },
+    "colossus_down": {
+      "priority": 5,
+      "wait_s": 8,
+      "cooldown_s": 3,
+      "variants": [
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Colosse à terre."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Bien reçu.",
+              "Continuez."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Colosse neutralisé."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Confirmé.",
+              "Bon tir."
+            ]
+          }
+        ]
+      ]
+    },
+    "screamer_down": {
+      "priority": 5,
+      "wait_s": 8,
+      "cooldown_s": 3,
+      "variants": [
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Hurleur neutralisé."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Bien reçu."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Hurleur à terre."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu."
+            ]
+          }
+        ]
+      ]
+    },
+    "alpha_down": {
+      "priority": 5,
+      "wait_s": 8,
+      "cooldown_s": 3,
+      "variants": [
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Alpha à terre.",
+              "La meute perd son chef."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Finissez-les."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Alpha neutralisé."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "La meute est figée.",
+              "J'engage."
+            ]
+          }
+        ]
+      ]
+    },
+    "sup_barrage": {
+      "priority": 6,
+      "wait_s": 8,
+      "cooldown_s": 2,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Lutèce, ici Nocturne deux un.|Lutèce, ici Nocturne 2-1.",
+              "Demande de barrage de cent cinq.|Demande de barrage de 105."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Reçu Nocturne.",
+              "Barrage autorisé.",
+              "Obus en route."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Lutèce, barrage demandé.",
+              "Sur la zone visée."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Compris.",
+              "Tirs dans quelques secondes."
+            ]
+          }
+        ]
+      ]
+    },
+    "sup_drone": {
+      "priority": 6,
+      "wait_s": 8,
+      "cooldown_s": 2,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Lutèce, ici Nocturne deux un.|Lutèce, ici Nocturne 2-1.",
+              "Demande de drone de reconnaissance."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Reçu.",
+              "Drone en vol.",
+              "Vous aurez la zone en vue."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Demande de drone sur la zone."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Compris.",
+              "Drone en approche."
+            ]
+          }
+        ]
+      ]
+    },
+    "sup_decoy": {
+      "priority": 6,
+      "wait_s": 8,
+      "cooldown_s": 2,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Lutèce, ici Nocturne deux un.|Lutèce, ici Nocturne 2-1.",
+              "Demande de leurre sonore."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Reçu.",
+              "Leurre en place.",
+              "Les infectés vont s'y diriger."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Leurre sonore demandé."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Compris.",
+              "Leurre activé."
+            ]
+          }
+        ]
+      ]
+    },
+    "sup_drop": {
+      "priority": 6,
+      "wait_s": 8,
+      "cooldown_s": 2,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Lutèce, ici Nocturne deux un.|Lutèce, ici Nocturne 2-1.",
+              "Demande de largage de munitions."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Reçu.",
+              "Largage dans quelques secondes."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "tireur",
+            "say": [
+              "Munitions basses.",
+              "Demande de largage."
+            ]
+          },
+          {
+            "who": "base",
+            "say": [
+              "Compris.",
+              "Largage en préparation."
+            ]
+          }
+        ]
+      ]
+    },
+    "sup_drop_done": {
+      "priority": 5,
+      "wait_s": 10,
+      "cooldown_s": 3,
+      "good": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Largage effectué.",
+              "Munitions à vous."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Munitions reçues.",
+              "Merci Lutèce."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Caisson de munitions reçu."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je recharge."
+            ]
+          }
+        ]
+      ]
+    },
+    "wave": {
+      "priority": 4,
+      "wait_s": 8,
+      "cooldown_s": 4,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "{wave}",
+              "Tenez la zone."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "{wave}",
+              "Les infectés affluent."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu."
+            ]
+          }
+        ]
+      ]
+    },
+    "start_endless": {
+      "priority": 9,
+      "wait_s": 40,
+      "cooldown_s": 0,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne deux un, ici Lutèce.|Nocturne 2-1, ici Lutèce.",
+              "Nuit blanche.",
+              "Les infectés arriveront sans fin.",
+              "Tenez le plus longtemps possible."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Lutèce, reçu.",
+              "Nous restons en orbite."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu.",
+              "J'ai la visée."
+            ]
+          }
+        ]
+      ]
+    },
+    "end_patrol": {
+      "priority": 10,
+      "wait_s": 60,
+      "cooldown_s": 0,
+      "good": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Nocturne deux un, ici Lutèce.|Nocturne 2-1, ici Lutèce.",
+              "Relève de l'équipage.",
+              "Fin de la patrouille.",
+              "Bon travail."
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Lutèce, reçu.",
+              "Nous rompons l'orbite."
+            ]
+          }
+        ]
+      ]
+    },
+    "radio_fail": {
+      "priority": 9,
+      "wait_s": 30,
+      "cooldown_s": 0,
+      "variants": [
+        [
+          {
+            "who": "avion",
+            "say": [
+              "Panne de liaison avec Lutèce."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "On continue sans la station."
+            ]
+          }
+        ]
+      ]
+    },
+    "raze_advice": {
+      "priority": 7,
+      "wait_s": 12,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Lutèce à Nocturne.",
+              "Immeuble perdu.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Reçu.",
+              "Tireur, vous pouvez le raser."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je m'en occupe."
+            ]
+          }
+        ],
+        [
+          {
+            "who": "base",
+            "say": [
+              "Alerte.",
+              "Les infectés tiennent l'immeuble.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Compris.",
+              "Tireur, rasez-le avant qu'il ne déborde."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Reçu."
+            ]
+          }
+        ]
+      ]
+    },
+    "siege_alert": {
+      "priority": 5,
+      "wait_s": 10,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Porte attaquée.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Tireur, abattez les infectés devant la porte."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je vois la porte.",
+              "J'engage."
+            ]
+          }
+        ]
+      ]
+    },
+    "loss_inside": {
+      "priority": 6,
+      "wait_s": 10,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Civils dévorés dans un immeuble.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Tireur, les infectés sont à l'intérieur.",
+              "Tenez la rue autour."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Compris."
+            ]
+          }
+        ]
+      ]
+    },
+    "loss_street": {
+      "priority": 4,
+      "wait_s": 8,
+      "cooldown_s": 0,
+      "alert": true,
+      "variants": [
+        [
+          {
+            "who": "base",
+            "say": [
+              "Civils dévorés dans la rue.",
+              "{dir}",
+              "{dist}"
+            ]
+          },
+          {
+            "who": "avion",
+            "say": [
+              "Tireur, abattez les infectés près des fuyards."
+            ]
+          },
+          {
+            "who": "tireur",
+            "say": [
+              "Je les vois."
+            ]
+          }
+        ]
+      ]
+    }
+  }
+}

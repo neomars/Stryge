@@ -1,0 +1,35 @@
+{
+ "_commentaire": "Carte de campagne : un secteur par mission (data/<file>). unlock : nombre d'étoiles à cumuler, tous secteurs confondus (meilleur résultat de chaque étoile), pour ouvrir le secteur. map : position [x, y] (0..1) sur la carte stylisée, nord en haut. Les secteurs sont de vraies cartes de Paris (IGN BD TOPO + OpenStreetMap), converties par tools/city dans data/cities : la clé « city.file » du fichier de mission désigne la carte ; la graine et le style ne servent qu'au générateur de secours (--style).",
+ "sectors": [
+  {
+   "id": "mission_01", "file": "mission_01.json", "name": "Quartier latin", "tag": "Quais et ponts",
+   "map": [0.52, 0.67], "unlock": 0,
+   "text": "Le cœur étudiant de Paris : Notre-Dame et l'île de la Cité, le Panthéon, la Sorbonne et le jardin du Luxembourg, avec la Seine et ses ponts qui traversent le secteur. Les infectés arrivent par groupes espacés : c'est ici qu'on apprend le métier.",
+   "features": ["La Seine, l'île de la Cité et l'île Saint-Louis", "Du Panthéon au jardin du Luxembourg", "Vagues espacées", "Le secteur le plus indulgent"]
+  },
+  {
+   "id": "mission_02", "file": "mission_02.json", "name": "Montmartre", "tag": "Ruelles",
+   "map": [0.50, 0.30], "unlock": 2,
+   "text": "La butte Montmartre : le Sacré-Cœur, la place du Tertre, Pigalle et le Moulin Rouge, jusqu'à la gare du Nord. Des ruelles de six à huit mètres entre des immeubles serrés : un obus lourd y emporte plusieurs maisons, il faut viser entre les bâtiments.",
+   "features": ["Rues de 7 à 8 m en moyenne", "Immeubles serrés : le 105 mm fait des ravages", "Du Sacré-Cœur à la gare du Nord", "Nombreux assauts sur les portes"]
+  },
+  {
+   "id": "mission_03", "file": "mission_03.json", "name": "Les Halles", "tag": "Métro",
+   "map": [0.53, 0.50], "unlock": 4,
+   "text": "Le cœur historique de la rive droite : le Forum des Halles, Saint-Eustache, Beaubourg et le Louvre, presque sans parc. Huit bouches de métro (Sentier, Réaumur-Sébastopol, Étienne Marcel, Bourse, Les Halles), repérées en bleu sur la carte, crachent des groupes d'infectés ; la radio signale chaque sortie.",
+   "features": ["8 bouches de métro (Sentier, Bourse, Les Halles…)", "Presque aucun parc : des immeubles partout", "Des groupes surgissent au pied des immeubles"]
+  },
+  {
+   "id": "mission_04", "file": "mission_04.json", "name": "La Défense", "tag": "Tours",
+   "map": [0.13, 0.44], "unlock": 7,
+   "text": "Le quartier d'affaires de La Défense : la Grande Arche et des tours de plus de cent mètres autour du parvis, la Seine à l'est. Les angles de tir sont masqués, chaque tour abrite jusqu'à vingt-quatre civils et les coureurs sont plus nombreux. La nuit dure plus longtemps.",
+   "features": ["De la Grande Arche aux tours de 200 m : angles de tir masqués", "Jusqu'à 24 civils par tour, portes blindées", "Dalle et larges avenues, coureurs plus nombreux", "Nuit de sept minutes et demie"]
+  },
+  {
+   "id": "mission_05", "file": "mission_05.json", "name": "Stade de France", "tag": "Foule",
+   "map": [0.64, 0.11], "unlock": 10,
+   "text": "Le Stade de France à Saint-Denis, entre le canal et les voies ferrées : quatre tribunes et plus de trois cents personnes à protéger. Les infectés convergent sur les tribunes ; un seul obus lourd sur l'une d'elles coûte une grande part du seuil de pertes.",
+   "features": ["4 tribunes de 70 à 100 civils", "Assauts répétés sur les tribunes", "Un obus lourd sur une tribune : très coûteux", "Nuit de huit minutes"]
+  }
+ ]
+}

@@ -1,0 +1,885 @@
+{
+ "_commentaire": "Médailles. cond : liste de conditions [fait, opérateur, valeur] toutes à remplir. Les faits commençant par c_ sont cumulés sur toute la carrière ; les autres décrivent la mission qui vient de finir. Une médaille ne s'obtient qu'une fois ; elle rapporte l'XP et les crédits de son palier.",
+ "tiers": {
+  "bronze": {
+   "name": "BRONZE",
+   "xp": 40,
+   "credits": 20
+  },
+  "silver": {
+   "name": "ARGENT",
+   "xp": 100,
+   "credits": 50
+  },
+  "gold": {
+   "name": "OR",
+   "xp": 250,
+   "credits": 120
+  }
+ },
+ "medals": [
+  {
+   "id": "first_night",
+   "name": "Baptême du feu",
+   "text": "Terminer une première mission.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "c_missions",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "first_win",
+   "name": "Aube sauvée",
+   "text": "Gagner une mission.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "win_5",
+   "name": "Vétéran des nuits",
+   "text": "Gagner 5 missions.",
+   "tier": "silver",
+   "cond": [
+    [
+     "c_wins",
+     ">=",
+     5
+    ]
+   ]
+  },
+  {
+   "id": "win_20",
+   "name": "Légende de Lutèce",
+   "text": "Gagner 20 missions.",
+   "tier": "gold",
+   "cond": [
+    [
+     "c_wins",
+     ">=",
+     20
+    ]
+   ]
+  },
+  {
+   "id": "kills_100",
+   "name": "Chasseur",
+   "text": "Neutraliser 100 infectés en une mission.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "kills",
+     ">=",
+     100
+    ]
+   ]
+  },
+  {
+   "id": "kills_200",
+   "name": "Faucheuse",
+   "text": "Neutraliser 200 infectés en une mission.",
+   "tier": "silver",
+   "cond": [
+    [
+     "kills",
+     ">=",
+     200
+    ]
+   ]
+  },
+  {
+   "id": "kills_1000",
+   "name": "Millier",
+   "text": "Neutraliser 1 000 infectés au total.",
+   "tier": "silver",
+   "cond": [
+    [
+     "c_kills",
+     ">=",
+     1000
+    ]
+   ]
+  },
+  {
+   "id": "kills_5000",
+   "name": "Cinq mille",
+   "text": "Neutraliser 5 000 infectés au total.",
+   "tier": "gold",
+   "cond": [
+    [
+     "c_kills",
+     ">=",
+     5000
+    ]
+   ]
+  },
+  {
+   "id": "gau_100",
+   "name": "Pluie d'acier",
+   "text": "100 infectés abattus au 25 mm en une mission.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "kills_w0",
+     ">=",
+     100
+    ]
+   ]
+  },
+  {
+   "id": "bofors_30",
+   "name": "Artilleur",
+   "text": "30 infectés abattus au 40 mm en une mission.",
+   "tier": "silver",
+   "cond": [
+    [
+     "kills_w1",
+     ">=",
+     30
+    ]
+   ]
+  },
+  {
+   "id": "m102_40",
+   "name": "Maître du 105",
+   "text": "40 infectés abattus au 105 mm en une mission.",
+   "tier": "silver",
+   "cond": [
+    [
+     "kills_w2",
+     ">=",
+     40
+    ]
+   ]
+  },
+  {
+   "id": "salve",
+   "name": "Salve d'honneur",
+   "text": "10 infectés neutralisés par un seul obus.",
+   "tier": "silver",
+   "cond": [
+    [
+     "max_kills_shell",
+     ">=",
+     10
+    ]
+   ]
+  },
+  {
+   "id": "long_shot",
+   "name": "Œil de lynx",
+   "text": "Une élimination à plus de 3 300 m.",
+   "tier": "silver",
+   "cond": [
+    [
+     "max_kill_range",
+     ">=",
+     3300
+    ]
+   ]
+  },
+  {
+   "id": "hit_10",
+   "name": "Coup au but",
+   "text": "10 obus lourds de suite qui touchent un infecté.",
+   "tier": "silver",
+   "cond": [
+    [
+     "hit_streak_best",
+     ">=",
+     10
+    ]
+   ]
+  },
+  {
+   "id": "precise_70",
+   "name": "Tireur d'élite",
+   "text": "70 % d'obus lourds efficaces (20 obus au moins).",
+   "tier": "silver",
+   "cond": [
+    [
+     "accuracy",
+     ">=",
+     70
+    ],
+    [
+     "shells_heavy",
+     ">=",
+     20
+    ]
+   ]
+  },
+  {
+   "id": "precise_85",
+   "name": "Main de fer",
+   "text": "85 % d'obus lourds efficaces (30 obus au moins).",
+   "tier": "gold",
+   "cond": [
+    [
+     "accuracy",
+     ">=",
+     85
+    ],
+    [
+     "shells_heavy",
+     ">=",
+     30
+    ]
+   ]
+  },
+  {
+   "id": "chain_30",
+   "name": "Enchaînement",
+   "text": "Une série de 30 éliminations sans bavure.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "clean_best",
+     ">=",
+     30
+    ]
+   ]
+  },
+  {
+   "id": "chain_60",
+   "name": "Série infernale",
+   "text": "Une série de 60 éliminations sans bavure.",
+   "tier": "silver",
+   "cond": [
+    [
+     "clean_best",
+     ">=",
+     60
+    ]
+   ]
+  },
+  {
+   "id": "chain_100",
+   "name": "Imparable",
+   "text": "Une série de 100 éliminations sans bavure.",
+   "tier": "gold",
+   "cond": [
+    [
+     "clean_best",
+     ">=",
+     100
+    ]
+   ]
+  },
+  {
+   "id": "saver_10",
+   "name": "Passeur",
+   "text": "10 civils sauvés en une mission.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "saved",
+     ">=",
+     10
+    ]
+   ]
+  },
+  {
+   "id": "guardian",
+   "name": "Ange gardien",
+   "text": "Gagner en perdant 15 civils au plus.",
+   "tier": "silver",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ],
+    [
+     "lost",
+     "<=",
+     15
+    ]
+   ]
+  },
+  {
+   "id": "no_collateral",
+   "name": "Sans bavure",
+   "text": "Gagner sans aucune victime collatérale.",
+   "tier": "gold",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ],
+    [
+     "collateral",
+     "==",
+     0
+    ]
+   ]
+  },
+  {
+   "id": "surgeon",
+   "name": "Chirurgien",
+   "text": "Gagner en rasant 4 immeubles au plus.",
+   "tier": "silver",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ],
+    [
+     "destroyed",
+     "<=",
+     4
+    ]
+   ]
+  },
+  {
+   "id": "rate_b",
+   "name": "Bon élément",
+   "text": "Gagner avec la note B.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ],
+    [
+     "rating",
+     ">=",
+     2
+    ]
+   ]
+  },
+  {
+   "id": "rate_a",
+   "name": "Excellent élément",
+   "text": "Gagner avec la note A.",
+   "tier": "silver",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ],
+    [
+     "rating",
+     ">=",
+     3
+    ]
+   ]
+  },
+  {
+   "id": "rate_s",
+   "name": "Élite",
+   "text": "Gagner avec la note S.",
+   "tier": "gold",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ],
+    [
+     "rating",
+     ">=",
+     4
+    ]
+   ]
+  },
+  {
+   "id": "score_10k",
+   "name": "Dix mille",
+   "text": "Totaliser 10 000 points en une mission.",
+   "tier": "silver",
+   "cond": [
+    [
+     "score",
+     ">=",
+     10000
+    ]
+   ]
+  },
+  {
+   "id": "stars_3",
+   "name": "Trois étoiles",
+   "text": "Décrocher 3 étoiles sur une mission.",
+   "tier": "silver",
+   "cond": [
+    [
+     "stars",
+     ">=",
+     3
+    ]
+   ]
+  },
+  {
+   "id": "stars_10",
+   "name": "Constellation",
+   "text": "Cumuler 10 étoiles sur l'ensemble des missions.",
+   "tier": "silver",
+   "cond": [
+    [
+     "c_stars",
+     ">=",
+     10
+    ]
+   ]
+  },
+  {
+   "id": "obj_first",
+   "name": "Ordre reçu",
+   "text": "Réussir un objectif secondaire.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "obj_done",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "obj_all",
+   "name": "Mission complète",
+   "text": "Réussir tous les objectifs secondaires d'une mission.",
+   "tier": "gold",
+   "cond": [
+    [
+     "objectives_all",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "hidden_first",
+   "name": "Flair",
+   "text": "Découvrir un objectif bonus.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "hidden_found",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "hidden_all",
+   "name": "Chasseur de secrets",
+   "text": "Découvrir tous les objectifs bonus d'une mission.",
+   "tier": "gold",
+   "cond": [
+    [
+     "hidden_all",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "obj_25",
+   "name": "Exécutant",
+   "text": "Réussir 25 objectifs secondaires au total.",
+   "tier": "silver",
+   "cond": [
+    [
+     "c_obj",
+     ">=",
+     25
+    ]
+   ]
+  },
+  {
+   "id": "grade_adj",
+   "name": "Gradé",
+   "text": "Atteindre le grade d'Adjudant.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "c_grade",
+     ">=",
+     2
+    ]
+   ]
+  },
+  {
+   "id": "grade_ltn",
+   "name": "Officier",
+   "text": "Atteindre le grade de Lieutenant.",
+   "tier": "silver",
+   "cond": [
+    [
+     "c_grade",
+     ">=",
+     5
+    ]
+   ]
+  },
+  {
+   "id": "grade_col",
+   "name": "Colonel",
+   "text": "Atteindre le grade de Colonel.",
+   "tier": "gold",
+   "cond": [
+    [
+     "c_grade",
+     ">=",
+     9
+    ]
+   ]
+  },
+  {
+   "id": "shop_first",
+   "name": "Mécano",
+   "text": "Acheter une première amélioration.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "c_upgrades",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "shop_all",
+   "name": "Atelier complet",
+   "text": "Acheter tous les niveaux de toutes les améliorations.",
+   "tier": "gold",
+   "cond": [
+    [
+     "shop_complete",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "collector",
+   "name": "Collectionneur",
+   "text": "Obtenir 12 médailles.",
+   "tier": "silver",
+   "cond": [
+    [
+     "c_medals",
+     ">=",
+     12
+    ]
+   ]
+  },
+  {
+   "id": "sector_2",
+   "name": "Reconnaissance",
+   "text": "Gagner dans 2 secteurs différents.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "c_sectors",
+     ">=",
+     2
+    ]
+   ]
+  },
+  {
+   "id": "vet_win",
+   "name": "Épreuve du feu",
+   "text": "Gagner une mission en difficulté Vétéran ou plus.",
+   "tier": "silver",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ],
+    [
+     "diff",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "sector_all",
+   "name": "Tour de Paris",
+   "text": "Gagner dans les 5 secteurs.",
+   "tier": "gold",
+   "cond": [
+    [
+     "c_sectors",
+     ">=",
+     5
+    ]
+   ]
+  },
+  {
+   "id": "nm_win",
+   "name": "Cauchemar vaincu",
+   "text": "Gagner une mission en difficulté Cauchemar.",
+   "tier": "gold",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ],
+    [
+     "diff",
+     ">=",
+     2
+    ]
+   ]
+  },
+  {
+   "id": "stars_15",
+   "name": "Ciel étoilé",
+   "text": "Cumuler les 15 étoiles de la campagne.",
+   "tier": "gold",
+   "cond": [
+    [
+     "c_stars",
+     ">=",
+     15
+    ]
+   ]
+  },
+  {
+   "id": "col_1",
+   "name": "Brise-colosse",
+   "text": "Abattre un colosse blindé (il faut du 105 mm).",
+   "tier": "bronze",
+   "cond": [
+    [
+     "kills_colossus",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "col_5",
+   "name": "Chasseur de colosses",
+   "text": "Abattre 5 colosses au cours de votre carrière.",
+   "tier": "silver",
+   "cond": [
+    [
+     "c_colossus",
+     ">=",
+     5
+    ]
+   ]
+  },
+  {
+   "id": "alpha_1",
+   "name": "Tête de meute",
+   "text": "Abattre un alpha et disperser sa meute.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "kills_alpha",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "scream_3",
+   "name": "Silence radio",
+   "text": "Faire taire 3 hurleurs dans la même mission.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "kills_screamer",
+     ">=",
+     3
+    ]
+   ]
+  },
+  {
+   "id": "special_all",
+   "name": "Ménagerie",
+   "text": "Abattre un colosse, un hurleur et un alpha dans la même mission.",
+   "tier": "silver",
+   "cond": [
+    [
+     "kills_colossus",
+     ">=",
+     1
+    ],
+    [
+     "kills_screamer",
+     ">=",
+     1
+    ],
+    [
+     "kills_alpha",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "sup_1",
+   "name": "Appui feu",
+   "text": "Demander un appui (touches 4 à 7).",
+   "tier": "bronze",
+   "cond": [
+    [
+     "supports",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "sup_rain",
+   "name": "Pluie de fer",
+   "text": "Neutraliser 20 infectés avec des obus de barrage dans la même mission.",
+   "tier": "silver",
+   "cond": [
+    [
+     "support_kills",
+     ">=",
+     20
+    ]
+   ]
+  },
+  {
+   "id": "sup_all",
+   "name": "Chef d'orchestre",
+   "text": "Demander 4 appuis dans la même mission.",
+   "tier": "silver",
+   "cond": [
+    [
+     "supports",
+     ">=",
+     4
+    ]
+   ]
+  },
+  {
+   "id": "mut_win",
+   "name": "Sous contrainte",
+   "text": "Gagner une mission avec au moins un mutateur.",
+   "tier": "silver",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ],
+    [
+     "mut_n",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "mut_3",
+   "name": "Trois contraintes",
+   "text": "Gagner une mission avec trois mutateurs.",
+   "tier": "gold",
+   "cond": [
+    [
+     "won",
+     "==",
+     1
+    ],
+    [
+     "mut_n",
+     ">=",
+     3
+    ]
+   ]
+  },
+  {
+   "id": "daily_1",
+   "name": "Fidèle au poste",
+   "text": "Gagner un défi du jour.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "c_daily_wins",
+     ">=",
+     1
+    ]
+   ]
+  },
+  {
+   "id": "daily_3",
+   "name": "Trois nuits de suite",
+   "text": "Gagner le défi du jour trois jours de suite.",
+   "tier": "silver",
+   "cond": [
+    [
+     "c_streak",
+     ">=",
+     3
+    ]
+   ]
+  },
+  {
+   "id": "daily_7",
+   "name": "Semaine blanche",
+   "text": "Gagner le défi du jour sept jours de suite.",
+   "tier": "gold",
+   "cond": [
+    [
+     "c_streak",
+     ">=",
+     7
+    ]
+   ]
+  },
+  {
+   "id": "nb_5",
+   "name": "Nuit blanche",
+   "text": "Tenir 5 vagues en Nuit blanche.",
+   "tier": "bronze",
+   "cond": [
+    [
+     "c_endless",
+     ">=",
+     5
+    ]
+   ]
+  },
+  {
+   "id": "nb_12",
+   "name": "Insomnie",
+   "text": "Tenir 12 vagues en Nuit blanche.",
+   "tier": "silver",
+   "cond": [
+    [
+     "c_endless",
+     ">=",
+     12
+    ]
+   ]
+  },
+  {
+   "id": "nb_25",
+   "name": "Jusqu'à l'aube",
+   "text": "Tenir 25 vagues en Nuit blanche.",
+   "tier": "gold",
+   "cond": [
+    [
+     "c_endless",
+     ">=",
+     25
+    ]
+   ]
+  }
+ ]
+}

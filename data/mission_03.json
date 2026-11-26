@@ -1,0 +1,382 @@
+{
+ "id": "mission_03",
+ "title": "NUIT 3 — LES HALLES",
+ "briefing": "Le réseau souterrain est infesté. Des groupes entiers remontent par les bouches de métro, au pied des immeubles les plus peuplés du secteur.\nLes entrées sont repérées en bleu sur la carte : coupez chaque groupe avant qu'il ne se répande dans les rues.",
+ "city": {
+  "seed": 1969,
+  "size": 2400,
+  "style": "halles",
+  "file": "halles"
+ },
+ "duration_s": 420,
+ "max_civilians_lost": 70,
+ "collateral_counts_as_lost": true,
+ "orbit": {
+  "radius_m": 900,
+  "altitude_m": 2600,
+  "speed_ms": 80
+ },
+ "zone": {
+  "cx": 0,
+  "cz": 0,
+  "radius_m": 600
+ },
+ "start_zombies": 10,
+ "start_infested_buildings": 0,
+ "waves": [
+  {
+   "t": 20,
+   "type": "streets",
+   "count": 4,
+   "r_min": 125,
+   "r_max": 400
+  },
+  {
+   "t": 40,
+   "type": "metro",
+   "count": 3,
+   "r_min": 150,
+   "r_max": 550
+  },
+  {
+   "t": 55,
+   "type": "assault",
+   "count": 1,
+   "radius": 350,
+   "zombies": 4,
+   "progress": 0.2
+  },
+  {
+   "t": 75,
+   "type": "metro",
+   "count": 3,
+   "r_min": 150,
+   "r_max": 550
+  },
+  {
+   "t": 95,
+   "type": "streets",
+   "count": 5,
+   "r_min": 150,
+   "r_max": 425
+  },
+  {
+   "t": 100,
+   "type": "breach",
+   "count": 1,
+   "radius": 375
+  },
+  {
+   "t": 110,
+   "type": "special",
+   "zt": "screamer",
+   "count": 1,
+   "r_min": 150,
+   "r_max": 400,
+   "min_level": 1
+  },
+  {
+   "t": 120,
+   "type": "metro",
+   "count": 4,
+   "r_min": 150,
+   "r_max": 550
+  },
+  {
+   "t": 150,
+   "type": "assault",
+   "count": 1,
+   "radius": 400,
+   "zombies": 4,
+   "progress": 0.2
+  },
+  {
+   "t": 160,
+   "type": "metro",
+   "count": 4,
+   "r_min": 150,
+   "r_max": 550
+  },
+  {
+   "t": 170,
+   "type": "streets",
+   "count": 6,
+   "r_min": 150,
+   "r_max": 450
+  },
+  {
+   "t": 200,
+   "type": "breach",
+   "count": 1,
+   "radius": 400
+  },
+  {
+   "t": 205,
+   "type": "metro",
+   "count": 5,
+   "r_min": 150,
+   "r_max": 575
+  },
+  {
+   "t": 210,
+   "type": "special",
+   "zt": "alpha",
+   "count": 1,
+   "r_min": 150,
+   "r_max": 425,
+   "min_level": 1
+  },
+  {
+   "t": 240,
+   "type": "assault",
+   "count": 1,
+   "radius": 400,
+   "zombies": 5,
+   "progress": 0.25
+  },
+  {
+   "t": 245,
+   "type": "metro",
+   "count": 5,
+   "r_min": 150,
+   "r_max": 575
+  },
+  {
+   "t": 250,
+   "type": "streets",
+   "count": 6,
+   "r_min": 150,
+   "r_max": 450
+  },
+  {
+   "t": 290,
+   "type": "metro",
+   "count": 6,
+   "r_min": 150,
+   "r_max": 575
+  },
+  {
+   "t": 290,
+   "type": "breach",
+   "count": 1,
+   "radius": 400
+  },
+  {
+   "t": 310,
+   "type": "special",
+   "zt": "alpha",
+   "count": 1,
+   "r_min": 150,
+   "r_max": 425,
+   "min_level": 1
+  },
+  {
+   "t": 320,
+   "type": "assault",
+   "count": 1,
+   "radius": 425,
+   "zombies": 5,
+   "progress": 0.25
+  },
+  {
+   "t": 330,
+   "type": "streets",
+   "count": 7,
+   "r_min": 150,
+   "r_max": 450
+  },
+  {
+   "t": 335,
+   "type": "metro",
+   "count": 7,
+   "r_min": 150,
+   "r_max": 575
+  }
+ ],
+ "rules": {
+  "zombie_hp": 40,
+  "runner_ratio": 0.25,
+  "seek_ratio": 0.3,
+  "amb_target": 45,
+  "amb_spawn_s": 1.6,
+  "amb_fear_m": 45,
+  "amb_chase_m": 28,
+  "eat_interval_s": 9.0,
+  "flee_interval_s": 4.5,
+  "turn_delay_s": 6.0,
+  "burst_threshold": 4,
+  "burst_interval_s": 2.5,
+  "door_hp_min": 70,
+  "door_hp_max": 130
+ },
+ "score_targets": [
+  3500,
+  6500,
+  10000,
+  14000
+ ],
+ "stars": [
+  {
+   "type": "win",
+   "text": "Tenir le secteur"
+  },
+  {
+   "type": "lost_max",
+   "value": 30,
+   "text": "Perdre moins de 30 civils"
+  },
+  {
+   "type": "objectives_min",
+   "value": 4,
+   "text": "Réussir 4 objectifs secondaires sur 5"
+  }
+ ],
+ "primary": {
+  "title": "Reprendre les Halles avant l'aube",
+  "text": "Moins de 55 civils perdus avant le lever du jour."
+ },
+ "max_active_objectives": 2,
+ "objectives": [
+  {
+   "id": "hunt_h1",
+   "kind": "secondary",
+   "type": "hunt",
+   "t": 35,
+   "duration": 70,
+   "count": 20,
+   "title": "Sortie de métro",
+   "text": "Neutralisez 20 infectés avant la fin du délai.",
+   "reward": {
+    "points": 500
+   }
+  },
+  {
+   "id": "evac_h",
+   "kind": "secondary",
+   "type": "evac",
+   "t": 95,
+   "duration": 120,
+   "count": 4,
+   "min_occ": 8,
+   "zombies": 1,
+   "radius": 400,
+   "max_evac": 320,
+   "title": "Vider l'immeuble",
+   "text": "Un immeuble est infiltré : sauvez 4 civils avant la fin du délai.",
+   "reward": {
+    "points": 600
+   }
+  },
+  {
+   "id": "intercept_h",
+   "kind": "secondary",
+   "type": "intercept",
+   "t": 180,
+   "duration": 90,
+   "count": 16,
+   "allow": 2,
+   "radius": 110,
+   "r_min": 150,
+   "r_max": 450,
+   "title": "Couper la sortie",
+   "text": "Détruisez le groupe avant qu'il n'atteigne les immeubles.",
+   "reward": {
+    "points": 650
+   }
+  },
+  {
+   "id": "hold_h",
+   "kind": "secondary",
+   "type": "hold",
+   "t": 250,
+   "duration": 80,
+   "radius": 400,
+   "min_occ": 8,
+   "zombies": 5,
+   "progress": 0.15,
+   "reinforce": [
+    {
+     "at": 30,
+     "zombies": 3
+    },
+    {
+     "at": 55,
+     "zombies": 4
+    }
+   ],
+   "title": "Tenir l'immeuble",
+   "text": "Aucun infecté ne doit entrer dans l'immeuble marqué.",
+   "reward": {
+    "points": 750
+   }
+  },
+  {
+   "id": "hunt_h2",
+   "kind": "secondary",
+   "type": "hunt",
+   "t": 335,
+   "duration": 70,
+   "count": 30,
+   "title": "Dernière battue",
+   "text": "Neutralisez 30 infectés avant la fin du délai.",
+   "reward": {
+    "points": 800
+   }
+  },
+  {
+   "id": "h_burst",
+   "kind": "hidden",
+   "type": "shell_kills",
+   "value": 8,
+   "title": "Tir groupé",
+   "text": "Huit infectés neutralisés par un seul obus.",
+   "reward": {
+    "points": 400
+   }
+  },
+  {
+   "id": "h_long",
+   "kind": "hidden",
+   "type": "long_shot",
+   "value": 3000,
+   "title": "Tir de précision",
+   "text": "Une élimination à plus de 3 000 m.",
+   "reward": {
+    "points": 400
+   }
+  },
+  {
+   "id": "h_chain",
+   "kind": "hidden",
+   "type": "chain",
+   "value": 60,
+   "title": "Série infernale",
+   "text": "Soixante éliminations d'affilée sans bavure.",
+   "reward": {
+    "points": 500
+   }
+  },
+  {
+   "id": "h_clean",
+   "kind": "hidden",
+   "type": "clean_run",
+   "value": 150,
+   "title": "Sans bavure",
+   "text": "Cent cinquante secondes sans victime collatérale.",
+   "reward": {
+    "points": 400
+   }
+  },
+  {
+   "id": "h_sharp",
+   "kind": "hidden",
+   "type": "sharp",
+   "value": 6,
+   "title": "Obus au but",
+   "text": "Six obus lourds de suite qui touchent un infecté.",
+   "reward": {
+    "points": 300
+   }
+  }
+ ]
+}

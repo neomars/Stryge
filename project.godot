@@ -1,0 +1,33 @@
+; Stryge (titre de travail précédent : Paris Night Gunship) — configuration du projet Godot (testé avec Godot 4.7.2).
+
+config_version=5
+
+[application]
+
+config/name="Stryge"
+config/description="Canonnière de nuit au-dessus de Paris et de la petite couronne : vue thermique, zombies, civils à protéger."
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://icon.svg"
+; Le dossier de données (profil, réglages) garde le nom du titre de travail : les profils déjà enregistrés restent lisibles.
+config/use_custom_user_dir=true
+config/custom_user_dir_name="godot/app_userdata/Paris Night Gunship"
+
+[debug]
+
+gdscript/warnings/integer_division=0
+gdscript/warnings/unused_signal=0
+gdscript/warnings/unused_parameter=0
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.02, 0.02, 0.025, 1)

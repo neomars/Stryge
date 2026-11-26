@@ -1,0 +1,9 @@
+# Godot 4
+.godot/
+*.translation
+export_presets.cfg
+/android/
+*.tmp
+/captures/
+/tools/audio/models/
+__pycache__/

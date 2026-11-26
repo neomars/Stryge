@@ -1,0 +1,85 @@
+{
+  "_commentaire": "Progression du joueur : grades, points d'expérience (XP) et crédits d'appui gagnés à la fin de chaque mission. Les XP cumulées fixent le grade ; chaque promotion rapporte des crédits.",
+  "grades": [
+    {
+      "name": "Sergent",
+      "short": "SGT",
+      "xp": 0,
+      "credits": 0
+    },
+    {
+      "name": "Sergent-chef",
+      "short": "SCH",
+      "xp": 1000,
+      "credits": 100
+    },
+    {
+      "name": "Adjudant",
+      "short": "ADJ",
+      "xp": 2600,
+      "credits": 150
+    },
+    {
+      "name": "Adjudant-chef",
+      "short": "ADC",
+      "xp": 4800,
+      "credits": 200
+    },
+    {
+      "name": "Major",
+      "short": "MAJ",
+      "xp": 7600,
+      "credits": 250
+    },
+    {
+      "name": "Lieutenant",
+      "short": "LTN",
+      "xp": 11000,
+      "credits": 300
+    },
+    {
+      "name": "Capitaine",
+      "short": "CNE",
+      "xp": 15500,
+      "credits": 400
+    },
+    {
+      "name": "Commandant",
+      "short": "CDT",
+      "xp": 21000,
+      "credits": 500
+    },
+    {
+      "name": "Lieutenant-colonel",
+      "short": "LCL",
+      "xp": 28000,
+      "credits": 650
+    },
+    {
+      "name": "Colonel",
+      "short": "COL",
+      "xp": 37000,
+      "credits": 800
+    }
+  ],
+  "xp": {
+    "per_score": 0.1,
+    "win": 150,
+    "per_star": 100,
+    "per_objective": 40,
+    "per_hidden": 60,
+    "new_star": 80,
+    "new_best_rating": 60,
+    "loss_fraction": 0.4
+  },
+  "credits": {
+    "per_score": 0.01,
+    "win": 50,
+    "per_star": 40,
+    "per_objective": 15,
+    "per_hidden": 20,
+    "new_star": 60,
+    "new_best_rating": 40,
+    "loss_fraction": 0.5
+  }
+}

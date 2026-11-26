@@ -1,0 +1,36 @@
+{
+ "_commentaire": "Mutateurs : des variantes de règles que le joueur ajoute avant le départ (au plus max_active à la fois). bonus : variation des gains d'XP et de crédits (+0,15 = +15 %) ; les bonus de plusieurs mutateurs se multiplient. excludes : mutateurs incompatibles. effects : fog (brouillard : la chaleur se perd avec la distance), radio_down (plus d'alertes ni d'objectifs annoncés, la carte ne montre plus les infectés), doors (facteur sur la résistance des portes), ammo et regen (facteurs sur les munitions et leur régénération), runners (facteur sur la part de coureurs). Le brouillard, la panne radio et les munitions s'appliquent aussi au défi du jour.",
+ "max_active": 3,
+ "mutators": [
+  {
+   "id": "fog", "name": "Brouillard", "short": "BROUILLARD",
+   "text": "Un air humide absorbe la chaleur : les personnes se fondent dans le décor dès que la distance augmente. Il faut zoomer pour les voir.",
+   "bonus": 0.12, "effects": {"fog": 1.0}
+  },
+  {
+   "id": "radio_down", "name": "Panne radio", "short": "PANNE RADIO",
+   "text": "La station directrice ne répond plus : ni alerte, ni objectif, et la carte tactique ne montre plus les infectés ni les immeubles attaqués. À vous de les repérer.",
+   "bonus": 0.20, "effects": {"radio_down": 1.0}
+  },
+  {
+   "id": "doors_weak", "name": "Portes fragiles", "short": "PORTES FRAGILES",
+   "text": "Les portes des immeubles cèdent deux fois plus vite.",
+   "bonus": 0.15, "excludes": ["doors_strong"], "effects": {"doors": 0.5}
+  },
+  {
+   "id": "doors_strong", "name": "Portes blindées", "short": "PORTES BLINDÉES",
+   "text": "Les portes tiennent deux fois plus longtemps : une nuit plus clémente, moins bien payée.",
+   "bonus": -0.10, "excludes": ["doors_weak"], "effects": {"doors": 2.0}
+  },
+  {
+   "id": "ammo_scarce", "name": "Munitions rares", "short": "MUNITIONS RARES",
+   "text": "Réserves réduites de 40 % et régénération divisée par deux : chaque coup compte.",
+   "bonus": 0.15, "effects": {"ammo": 0.6, "regen": 0.5}
+  },
+  {
+   "id": "runners", "name": "Coureurs", "short": "COUREURS",
+   "text": "Deux fois plus d'infectés courent : les groupes arrivent avant que l'on ait fini de les compter.",
+   "bonus": 0.12, "effects": {"runners": 2.0}
+  }
+ ]
+}
